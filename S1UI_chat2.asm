@@ -287,27 +287,76 @@ loc276e:Push register1
 Return
 }
 DefineFunction2 "broadCast" 9 26 false false true false true false true false false 5 "chatType" 25 "msgs" 8 "id" 22 "addParam" 20 "bLink" 19 "bName" 21 "bHTML" 23 "tabList" 18 "wisperType"  {
-Push ":tcc-link:" 1 register25 "indexOf"
+Push ":tcc:" 1 register25 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
 Not
-If loc2849
-Push ":tcc-link:" 1 register25 "split"
+If loc28f8
+Push ":tcc:" 1 register25 "split"
 CallMethod
 StoreRegister 14
 Pop
-Push "_locl4_" register14 1
+Push register14 "length"
 GetMember
-SetVariable
-Push "_locl4_"
-GetVariable
-Push "3" 2 "ToGame_Chat_ClickLink"
+StoreRegister 22
+Pop
+Push "FSCommand:ToGame_Chat_SendWriting" register5 "\t"
+Add2
+Push register22
+Add2
+Push "\t"
+Add2
+Push register8
+Add2
+Push "\t"
+Add2
+Push register22
+Add2
+GetURL2 false false 0
+Push "FSCommand:ToGame_Chat_SendWriting" register5 "\t"
+Add2
+Push register14 2
+GetMember
+Add2
+Push "\t"
+Add2
+Push register8
+Add2
+Push "\t"
+Add2
+Push register14 2
+GetMember
+Add2
+GetURL2 false false 0
+Push register22 7
+Equals2
+Not
+If loc28b9
+Push register14 2
+GetMember
+Push register14 1
+GetMember
+Push 2 "ToGame_Chat_ClickLink"
+CallFunction
+Pop
+Jump loc28f8
+loc28b9:Push register22 9
+Equals2
+Not
+If loc28f8
+Push register14 3
+GetMember
+Push register14 2
+GetMember
+Push register14 1
+GetMember
+Push 3 "ToGame_Chat_ClickLink"
 CallFunction
 Pop
 }
-loc2849:DefineFunction "countClose" 0  {
+loc28f8:DefineFunction "countClose" 0  {
 Push 3 0.0 "container_mc"
 GetVariable
 Push 3 "fade"
@@ -466,10 +515,10 @@ Pop
 Push 1
 StoreRegister 2
 Pop
-loc2b91:Push register2 register5
+loc2c40:Push register2 register5
 Less2
 Not
-If loc2c0a
+If loc2cb9
 Push register4 register2
 GetMember
 StoreRegister 3
@@ -481,25 +530,25 @@ Pop
 Push register1 "FFCC00"
 Equals2
 PushDuplicate
-If loc2bdf
+If loc2c8e
 Pop
 Push register1 "00AEEF"
 Equals2
-loc2bdf:PushDuplicate
-If loc2bee
+loc2c8e:PushDuplicate
+If loc2c9d
 Pop
 Push register1 "4ECD30"
 Equals2
-loc2bee:Not
-If loc2bfa
+loc2c9d:Not
+If loc2ca9
 Push true
 Return
-loc2bfa:Push register2
+loc2ca9:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc2b91
-loc2c0a:Push false
+Jump loc2c40
+loc2cb9:Push false
 Return
 }
 DefineFunction2 "addRecentSendMsg" 2 6 false false true false true false true false false 5 "htmlStr" 4 "link_array"  {
@@ -526,18 +575,18 @@ Push "recentMsgMax"
 GetVariable
 Greater
 Not
-If loc2cbc
+If loc2d6b
 Push 0.0 "recentMsg_array"
 GetVariable
 Push "shift"
 CallMethod
 Pop
 }
-loc2cbc:DefineFunction2 "setRecentMsg" 1 3 false false true false true false true false false 2 "method"  {
+loc2d6b:DefineFunction2 "setRecentMsg" 1 3 false false true false true false true false false 2 "method"  {
 Push register2 "prev"
 Equals2
 Not
-If loc2d38
+If loc2de7
 Push 1 "recentMsg_array"
 GetVariable
 Push "length"
@@ -555,11 +604,11 @@ GetVariable
 Push "unshift"
 CallMethod
 Pop
-Jump loc2d84
-loc2d38:Push register2 "next"
+Jump loc2e33
+loc2de7:Push register2 "next"
 Equals2
 Not
-If loc2d84
+If loc2e33
 Push 1 0.0 2 "recentMsg_array"
 GetVariable
 Push "splice"
@@ -571,7 +620,7 @@ GetVariable
 Push "push"
 CallMethod
 Pop
-loc2d84:Push 0.0 "remakeInputTf"
+loc2e33:Push 0.0 "remakeInputTf"
 CallFunction
 Pop
 Push "recentMsg_array"
@@ -620,7 +669,7 @@ DefineFunction2 "setWhisperTarget" 2 7 false false true false true false true fa
 Push register6 "add"
 Equals2
 Not
-If loc2fb5
+If loc3064
 Push false
 StoreRegister 3
 Pop
@@ -636,11 +685,11 @@ Pop
 Push 0.0
 StoreRegister 1
 Pop
-loc2eac:Push register1 register4 1
+loc2f5b:Push register1 register4 1
 Add2
 Less2
 Not
-If loc2f01
+If loc2fb0
 Push "whisperTarget_array"
 GetVariable
 Push register1
@@ -648,22 +697,22 @@ GetMember
 Push register5
 Equals2
 Not
-If loc2ef1
+If loc2fa0
 Push register1
 StoreRegister 2
 Pop
 Push true
 StoreRegister 3
 Pop
-Jump loc2f01
-loc2ef1:Push register1
+Jump loc2fb0
+loc2fa0:Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc2eac
-loc2f01:Push register3
+Jump loc2f5b
+loc2fb0:Push register3
 Not
-If loc2f48
+If loc2ff7
 Push 1 register2 2 "whisperTarget_array"
 GetVariable
 Push "splice"
@@ -675,20 +724,20 @@ GetVariable
 Push "unshift"
 CallMethod
 Pop
-Jump loc2f5c
-loc2f48:Push register5 1 "whisperTarget_array"
+Jump loc300b
+loc2ff7:Push register5 1 "whisperTarget_array"
 GetVariable
 Push "unshift"
 CallMethod
 Pop
-loc2f5c:Push "whisperTarget_array"
+loc300b:Push "whisperTarget_array"
 GetVariable
 Push "length"
 GetMember
 Push 10
 Greater
 Not
-If loc2fb0
+If loc305f
 Push 1 "whisperTarget_array"
 GetVariable
 Push "length"
@@ -702,11 +751,11 @@ CallMethod
 Push 0.0
 GetMember
 Pop
-loc2fb0:Jump loc3210
-loc2fb5:Push register6 "prev"
+loc305f:Jump loc32bf
+loc3064:Push register6 "prev"
 Equals2
 Not
-If loc30eb
+If loc319a
 Push 1 "whisperTarget_array"
 GetVariable
 Push "length"
@@ -790,11 +839,11 @@ Push "_x"
 GetMember
 Subtract
 SetMember
-Jump loc3210
-loc30eb:Push register6 "next"
+Jump loc32bf
+loc319a:Push register6 "next"
 Equals2
 Not
-If loc3210
+If loc32bf
 Push 1 0.0 2 "whisperTarget_array"
 GetVariable
 Push "splice"
@@ -873,10 +922,10 @@ GetMember
 Subtract
 SetMember
 }
-loc3210:DefineFunction2 "changeWhisperMode" 3 4 false false true false true false true false false 2 "bTrue" 1 "target" 3 "bNotChatClear"  {
+loc32bf:DefineFunction2 "changeWhisperMode" 3 4 false false true false true false true false false 2 "bTrue" 1 "target" 3 "bNotChatClear"  {
 Push register2
 Not
-If loc333e
+If loc33ed
 Push "currentWhisperTarget" register1
 SetVariable
 Push "container_mc"
@@ -948,8 +997,8 @@ Push "whisperReadyMode" false
 SetVariable
 Push "whisperMode" true
 SetVariable
-Jump loc33c1
-loc333e:Push "container_mc"
+Jump loc3470
+loc33ed:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -992,7 +1041,7 @@ Subtract
 SetMember
 Push "whisperMode" false
 SetVariable
-loc33c1:Push "container_mc"
+loc3470:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -1008,10 +1057,10 @@ GetMember
 Push "txt"
 GetMember
 Push "text" register3
-If loc3404
+If loc34b3
 Push ""
-Jump loc341c
-loc3404:Push "container_mc"
+Jump loc34cb
+loc34b3:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -1019,7 +1068,7 @@ Push "txt"
 GetMember
 Push "text"
 GetMember
-loc341c:SetMember
+loc34cb:SetMember
 }
 DefineFunction "impossibleCaretCheck" 0  {
 Push "checkCaretPos" 10 "checkCaretPosAndRepos"
@@ -1041,7 +1090,7 @@ Push 0.0
 Equals2
 PushDuplicate
 Not
-If loc34be
+If loc356d
 Pop
 Push "link_array"
 GetVariable
@@ -1051,8 +1100,8 @@ Push "sI"
 GetMember
 Push 1
 Equals2
-loc34be:Not
-If loc3506
+loc356d:Not
+If loc35b5
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -1074,7 +1123,7 @@ GetVariable
 Push "setSelection"
 CallMethod
 Pop
-loc3506:Push "checkCaretPos"
+loc35b5:Push "checkCaretPos"
 GetVariable
 Push 1 "clearInterval"
 CallFunction
@@ -1211,7 +1260,7 @@ DefineFunction2 "" 0 12 false false true false true false false true false  {
 Push 0.0 "isFirstCaretAndLink"
 CallFunction
 Not
-If loc377a
+If loc3829
 Push register1 "htmlText" "saveText"
 GetVariable
 SetMember
@@ -1238,14 +1287,14 @@ CallMethod
 Pop
 Push undefined
 Return
-loc377a:Push "notInputArea"
+loc3829:Push "notInputArea"
 GetVariable
 Not
-If loc3833
+If loc38e2
 Push "linkDelete"
 GetVariable
 Not
-If loc37e1
+If loc3890
 Push "eraseInputText"
 GetVariable
 Push "length"
@@ -1253,19 +1302,19 @@ GetMember
 Push 0.0
 Greater
 Not
-If loc37c1
+If loc3870
 Push "eraseInputText" 0.0
 InitArray
 SetVariable
-loc37c1:Push "saveText" register1 "htmlText"
+loc3870:Push "saveText" register1 "htmlText"
 GetMember
 SetVariable
 Push "notInputArea" false
 SetVariable
 Push "linkDelete" false
 SetVariable
-Jump loc382e
-loc37e1:Push register1 "htmlText" "saveText"
+Jump loc38dd
+loc3890:Push register1 "htmlText" "saveText"
 GetVariable
 SetMember
 Push "container_mc"
@@ -1289,15 +1338,15 @@ GetVariable
 Push "setSelection"
 CallMethod
 Pop
-loc382e:Jump loc43b2
-loc3833:Push "saveText"
+loc38dd:Jump loc4461
+loc38e2:Push "saveText"
 GetVariable
 Push register1 "htmlText"
 GetMember
 Equals2
 Not
 Not
-If loc42cc
+If loc437b
 Push "link_array"
 GetVariable
 Push "length"
@@ -1311,7 +1360,7 @@ GetMember
 Push 1
 Greater
 Not
-If loc3df1
+If loc3ea0
 Push "selectionInputIndex"
 GetVariable
 Push 1
@@ -1330,10 +1379,10 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-loc38c0:Push register2 register7
+loc396f:Push register2 register7
 Less2
 Not
-If loc3cb9
+If loc3d68
 Push "link_array"
 GetVariable
 Push register2
@@ -1350,8 +1399,8 @@ Push "caretIndex"
 GetMember
 Equals2
 Not
-If loc38ff
-loc38ff:Push "link_array"
+If loc39ae
+loc39ae:Push "link_array"
 GetVariable
 Push register2
 GetMember
@@ -1364,7 +1413,7 @@ GetMember
 Less2
 Not
 Not
-If loc3b5a
+If loc3c09
 Push "link_array"
 GetVariable
 Push register2
@@ -1377,7 +1426,7 @@ Push 1
 GetMember
 Less2
 Not
-If loc3b55
+If loc3c04
 Push "link_array"
 GetVariable
 Push register2
@@ -1391,12 +1440,12 @@ GetMember
 Greater
 Not
 Not
-If loc3992
+If loc3a41
 Push register2 1 register5 "push"
 CallMethod
 Pop
-Jump loc3ca9
-loc3992:Push "link_array"
+Jump loc3d58
+loc3a41:Push "link_array"
 GetVariable
 Push register2
 GetMember
@@ -1408,7 +1457,7 @@ Push 1
 GetMember
 Greater
 Not
-If loc3b55
+If loc3c04
 Push register2 1 register5 "push"
 CallMethod
 Pop
@@ -1417,38 +1466,38 @@ GetVariable
 Push 46
 Equals2
 PushDuplicate
-If loc39ef
+If loc3a9e
 Pop
 Push "saveDownKey"
 GetVariable
 Push 8
 Equals2
-loc39ef:If loc3a15
+loc3a9e:If loc3ac4
 Push "selectionInputIndex"
 GetVariable
 Push 0.0
 GetMember
 Push 1
 Add2
-Jump loc3a28
-loc3a15:Push "selectionInputIndex"
+Jump loc3ad7
+loc3ac4:Push "selectionInputIndex"
 GetVariable
 Push 0.0
 GetMember
-loc3a28:StoreRegister 10
+loc3ad7:StoreRegister 10
 Pop
 Push "saveDownKey"
 GetVariable
 Push 46
 Equals2
 PushDuplicate
-If loc3a52
+If loc3b01
 Pop
 Push "saveDownKey"
 GetVariable
 Push 8
 Equals2
-loc3a52:If loc3a9b
+loc3b01:If loc3b4a
 Push "selectionInputIndex"
 GetVariable
 Push 0.0
@@ -1467,8 +1516,8 @@ GetMember
 Subtract
 Push 1
 Add2
-Jump loc3ad1
-loc3a9b:Push "selectionInputIndex"
+Jump loc3b80
+loc3b4a:Push "selectionInputIndex"
 GetVariable
 Push 0.0
 GetMember
@@ -1484,7 +1533,7 @@ GetVariable
 Push 1
 GetMember
 Subtract
-loc3ad1:StoreRegister 11
+loc3b80:StoreRegister 11
 Pop
 Push "" register11 register10 3 register1 "replaceText"
 CallMethod
@@ -1508,22 +1557,22 @@ GetVariable
 Push 46
 Equals2
 PushDuplicate
-If loc3b39
+If loc3be8
 Pop
 Push "saveDownKey"
 GetVariable
 Push 8
 Equals2
-loc3b39:Not
+loc3be8:Not
 Not
-If loc3b50
+If loc3bff
 Push register4 1
 Subtract
 StoreRegister 4
 Pop
-loc3b50:Jump loc3ca9
-loc3b55:Jump loc3ca9
-loc3b5a:Push "link_array"
+loc3bff:Jump loc3d58
+loc3c04:Jump loc3d58
+loc3c09:Push "link_array"
 GetVariable
 Push register2
 GetMember
@@ -1535,7 +1584,7 @@ Push 0.0
 GetMember
 Less2
 Not
-If loc3ca9
+If loc3d58
 Push "link_array"
 GetVariable
 Push register2
@@ -1549,7 +1598,7 @@ GetMember
 Greater
 PushDuplicate
 Not
-If loc3bd7
+If loc3c86
 Pop
 Push "link_array"
 GetVariable
@@ -1563,8 +1612,8 @@ Push 1
 GetMember
 Greater
 Not
-loc3bd7:Not
-If loc3ca9
+loc3c86:Not
+If loc3d58
 Push register2 1 register5 "push"
 CallMethod
 Pop
@@ -1620,23 +1669,23 @@ GetVariable
 Push "setSelection"
 CallMethod
 Pop
-Jump loc3ca9
-loc3ca9:Push register2
+Jump loc3d58
+loc3d58:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc38c0
-loc3cb9:Push register5 "length"
+Jump loc396f
+loc3d68:Push register5 "length"
 GetMember
 Push 1
 Subtract
 StoreRegister 2
 Pop
-loc3ccf:Push register2 0.0
+loc3d7e:Push register2 0.0
 Less2
 Not
 Not
-If loc3d1e
+If loc3dcd
 Push 1 register5 register2
 GetMember
 Push 2 "link_array"
@@ -1652,8 +1701,8 @@ Push register2
 Decrement
 StoreRegister 2
 Pop
-Jump loc3ccf
-loc3d1e:Push "link_array"
+Jump loc3d7e
+loc3dcd:Push "link_array"
 GetVariable
 Push "length"
 GetMember
@@ -1662,10 +1711,10 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-loc3d40:Push register2 register7
+loc3def:Push register2 register7
 Less2
 Not
-If loc3dd5
+If loc3e84
 Push "link_array"
 GetVariable
 Push register2
@@ -1679,7 +1728,7 @@ GetMember
 Less2
 Not
 Not
-If loc3dc5
+If loc3e74
 Push "link_array"
 GetVariable
 Push register2
@@ -1706,18 +1755,18 @@ GetMember
 Push register4
 Subtract
 SetMember
-loc3dc5:Push register2
+loc3e74:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc3d40
-loc3dd5:Push "selectionInputIndex" 0.0
+Jump loc3def
+loc3e84:Push "selectionInputIndex" 0.0
 InitArray
 SetVariable
 Push "eraseLinkIndex" null
 SetVariable
-Jump loc42cc
-loc3df1:Push "link_array"
+Jump loc437b
+loc3ea0:Push "link_array"
 GetVariable
 Push "length"
 GetMember
@@ -1726,10 +1775,10 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-loc3e13:Push register2 register7
+loc3ec2:Push register2 register7
 Less2
 Not
-If loc40cf
+If loc417e
 Push "link_array"
 GetVariable
 Push register2
@@ -1747,13 +1796,13 @@ GetMember
 Less2
 Not
 Not
-If loc40bf
+If loc416e
 Push "saveDownKey"
 GetVariable
 Push 229
 Equals2
 PushDuplicate
-If loc3fe1
+If loc4090
 Pop
 Push "saveDownKey"
 GetVariable
@@ -1762,154 +1811,154 @@ Equals2
 Not
 PushDuplicate
 Not
-If loc3e91
+If loc3f40
 Pop
 Push "saveDownKey"
 GetVariable
 Push 13
 Equals2
 Not
-loc3e91:PushDuplicate
+loc3f40:PushDuplicate
 Not
-If loc3ea9
+If loc3f58
 Pop
 Push "saveDownKey"
 GetVariable
 Push 9
 Equals2
 Not
-loc3ea9:PushDuplicate
+loc3f58:PushDuplicate
 Not
-If loc3ec1
+If loc3f70
 Pop
 Push "saveDownKey"
 GetVariable
 Push 38
 Equals2
 Not
-loc3ec1:PushDuplicate
+loc3f70:PushDuplicate
 Not
-If loc3ed9
+If loc3f88
 Pop
 Push "saveDownKey"
 GetVariable
 Push 40
 Equals2
 Not
-loc3ed9:PushDuplicate
+loc3f88:PushDuplicate
 Not
-If loc3ef1
+If loc3fa0
 Pop
 Push "saveDownKey"
 GetVariable
 Push 39
 Equals2
 Not
-loc3ef1:PushDuplicate
+loc3fa0:PushDuplicate
 Not
-If loc3f09
+If loc3fb8
 Pop
 Push "saveDownKey"
 GetVariable
 Push 37
 Equals2
 Not
-loc3f09:PushDuplicate
+loc3fb8:PushDuplicate
 Not
-If loc3f21
+If loc3fd0
 Pop
 Push "saveDownKey"
 GetVariable
 Push 18
 Equals2
 Not
-loc3f21:PushDuplicate
+loc3fd0:PushDuplicate
 Not
-If loc3f39
+If loc3fe8
 Pop
 Push "saveDownKey"
 GetVariable
 Push 20
 Equals2
 Not
-loc3f39:PushDuplicate
+loc3fe8:PushDuplicate
 Not
-If loc3f51
+If loc4000
 Pop
 Push "saveDownKey"
 GetVariable
 Push 35
 Equals2
 Not
-loc3f51:PushDuplicate
+loc4000:PushDuplicate
 Not
-If loc3f69
+If loc4018
 Pop
 Push "saveDownKey"
 GetVariable
 Push 27
 Equals2
 Not
-loc3f69:PushDuplicate
+loc4018:PushDuplicate
 Not
-If loc3f81
+If loc4030
 Pop
 Push "saveDownKey"
 GetVariable
 Push 36
 Equals2
 Not
-loc3f81:PushDuplicate
+loc4030:PushDuplicate
 Not
-If loc3f99
+If loc4048
 Pop
 Push "saveDownKey"
 GetVariable
 Push 45
 Equals2
 Not
-loc3f99:PushDuplicate
+loc4048:PushDuplicate
 Not
-If loc3fb1
+If loc4060
 Pop
 Push "saveDownKey"
 GetVariable
 Push 16
 Equals2
 Not
-loc3fb1:PushDuplicate
+loc4060:PushDuplicate
 Not
-If loc3fc9
+If loc4078
 Pop
 Push "saveDownKey"
 GetVariable
 Push 34
 Equals2
 Not
-loc3fc9:PushDuplicate
+loc4078:PushDuplicate
 Not
-If loc3fe1
+If loc4090
 Pop
 Push "saveDownKey"
 GetVariable
 Push 33
 Equals2
 Not
-loc3fe1:Not
-If loc40bf
+loc4090:Not
+If loc416e
 Push "saveDownKey"
 GetVariable
 Push 8
 Equals2
 PushDuplicate
-If loc400c
+If loc40bb
 Pop
 Push "saveDownKey"
 GetVariable
 Push 46
 Equals2
-loc400c:Not
-If loc406b
+loc40bb:Not
+If loc411a
 Push "link_array"
 GetVariable
 Push register2
@@ -1936,8 +1985,8 @@ GetMember
 Push 1
 Subtract
 SetMember
-Jump loc40bf
-loc406b:Push "link_array"
+Jump loc416e
+loc411a:Push "link_array"
 GetVariable
 Push register2
 GetMember
@@ -1963,18 +2012,18 @@ GetMember
 Push 1
 Add2
 SetMember
-loc40bf:Push register2
+loc416e:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc3e13
-loc40cf:Push "eraseLinkIndex"
+Jump loc3ec2
+loc417e:Push "eraseLinkIndex"
 GetVariable
 Push null
 Equals2
 Not
 Not
-If loc42cc
+If loc437b
 Push "link_array"
 GetVariable
 Push "eraseLinkIndex"
@@ -1997,23 +2046,23 @@ Push "saveDownKey"
 GetVariable
 Push 46
 Equals2
-If loc4135
+If loc41e4
 Push register9 1
 Subtract
-Jump loc413a
-loc4135:Push register9
-loc413a:StoreRegister 10
+Jump loc41e9
+loc41e4:Push register9
+loc41e9:StoreRegister 10
 Pop
 Push "saveDownKey"
 GetVariable
 Push 46
 Equals2
-If loc4163
+If loc4212
 Push register8 1
 Subtract
-Jump loc4168
-loc4163:Push register8
-loc4168:StoreRegister 11
+Jump loc4217
+loc4212:Push register8
+loc4217:StoreRegister 11
 Pop
 Push "" register11 register10 3 register1 "replaceText"
 CallMethod
@@ -2021,13 +2070,13 @@ Pop
 Push 0.0
 StoreRegister 3
 Pop
-loc4192:Push register3 "link_array"
+loc4241:Push register3 "link_array"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc4275
+If loc4324
 Push "link_array"
 GetVariable
 Push "eraseLinkIndex"
@@ -2043,7 +2092,7 @@ Push "sI"
 GetMember
 Less2
 Not
-If loc4265
+If loc4314
 Push "link_array"
 GetVariable
 Push register3
@@ -2098,12 +2147,12 @@ GetMember
 Subtract
 Subtract
 SetMember
-loc4265:Push register3
+loc4314:Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc4192
-loc4275:Push 1 "eraseLinkIndex"
+Jump loc4241
+loc4324:Push 1 "eraseLinkIndex"
 GetVariable
 Push 2 "link_array"
 GetVariable
@@ -2120,12 +2169,12 @@ Push 0.0
 Greater
 Not
 Not
-If loc42c5
+If loc4374
 Push "linkNum" 0.0
 SetVariable
-loc42c5:Push "eraseLinkIndex" null
+loc4374:Push "eraseLinkIndex" null
 SetVariable
-loc42cc:Push "saveText" register1 "htmlText"
+loc437b:Push "saveText" register1 "htmlText"
 GetMember
 SetVariable
 Push register1 "text"
@@ -2136,15 +2185,15 @@ Push "whisperReadyMode"
 GetVariable
 PushDuplicate
 Not
-If loc430b
+If loc43ba
 Pop
 Push " " 1 register6 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
-loc430b:Not
-If loc434c
+loc43ba:Not
+If loc43fb
 Push " " 1 register6 "indexOf"
 CallMethod
 Push 0.0 2 register6 "substr"
@@ -2154,13 +2203,13 @@ CallFunction
 Pop
 Push "whisperReadyMode" false
 SetVariable
-loc434c:Push 1 0.0 2 register6 "substr"
+loc43fb:Push 1 0.0 2 register6 "substr"
 CallMethod
 Push "/"
 Equals2
 PushDuplicate
 Not
-If loc439e
+If loc444d
 Pop
 Push 1 register6 "length"
 GetMember
@@ -2170,12 +2219,12 @@ Push 2 register6 "substr"
 CallMethod
 Push " "
 Equals2
-loc439e:Not
-If loc43b2
+loc444d:Not
+If loc4461
 Push register6 1 "ToGame_Chat_RequestSlashCommand"
 CallFunction
 Pop
-loc43b2:Push register1 "text"
+loc4461:Push register1 "text"
 GetMember
 Push 1 "lib"
 GetVariable
@@ -2188,7 +2237,7 @@ CallMethod
 Push ""
 Equals2
 Not
-If loc4417
+If loc44c6
 Push register1 "text" ""
 SetMember
 Push register1 "htmlText" ""
@@ -2204,7 +2253,7 @@ Push "color"
 GetMember
 SetMember
 }
-loc4417:SetMember
+loc44c6:SetMember
 Push register7 "onSetFocus"
 DefineFunction2 "" 0 2 false false true false true false true false true  {
 Push register1 "chating" true
@@ -2260,7 +2309,7 @@ Greater
 Not
 PushDuplicate
 Not
-If loc451d
+If loc45cc
 Pop
 Push "link_array"
 GetVariable
@@ -2270,11 +2319,11 @@ Push "sI"
 GetMember
 Push 1
 Equals2
-loc451d:Not
-If loc4529
+loc45cc:Not
+If loc45d8
 Push true
 Return
-loc4529:Push false
+loc45d8:Push false
 Return
 }
 DefineFunction2 "calcHtmlText" 3 11 false false true false true false true false false 7 "htmlStr" 8 "paintTextColor" 9 "paintTextColorChannel"  {
@@ -2289,11 +2338,11 @@ GetMember
 Push 0.0
 Greater
 Not
-If loc45ad
+If loc465c
 Push false
-Jump loc45b2
-loc45ad:Push true
-loc45b2:StoreRegister 10
+Jump loc4661
+loc465c:Push true
+loc4661:StoreRegister 10
 Pop
 Push null
 StoreRegister 5
@@ -2321,7 +2370,7 @@ Pop
 Push register7 undefined
 Equals2
 Not
-If loc4662
+If loc4711
 Push "<FONT" "container_mc"
 GetVariable
 Push "input_mc"
@@ -2340,8 +2389,8 @@ Push "split"
 CallMethod
 StoreRegister 5
 Pop
-Jump loc4688
-loc4662:Push "<FONT" register7 2 "lib"
+Jump loc4737
+loc4711:Push "<FONT" register7 2 "lib"
 GetVariable
 Push "util"
 GetMember
@@ -2351,27 +2400,27 @@ Push "split"
 CallMethod
 StoreRegister 5
 Pop
-loc4688:Push register5 "length"
+loc4737:Push register5 "length"
 GetMember
 StoreRegister 6
 Pop
 Push register6 1 "isNaN"
 CallFunction
 Not
-If loc46b5
+If loc4764
 Push 1
 StoreRegister 6
 Pop
-loc46b5:Push ""
+loc4764:Push ""
 StoreRegister 4
 Pop
 Push 0.0
 StoreRegister 3
 Pop
-loc46d0:Push register3 register6
+loc477f:Push register3 register6
 Less2
 Not
-If loc4853
+If loc4902
 Push "<FONT" register5 register3
 GetMember
 Add2
@@ -2394,14 +2443,14 @@ Push register1 ""
 Equals2
 Not
 Not
-If loc4843
+If loc48f2
 Push "<" 1 register1 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
 Not
-If loc476f
+If loc481e
 Push false "&lt;" "<" register1 4 "lib"
 GetVariable
 Push "util"
@@ -2412,13 +2461,13 @@ Push "replace"
 CallMethod
 StoreRegister 1
 Pop
-loc476f:Push ">" 1 register1 "indexOf"
+loc481e:Push ">" 1 register1 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
 Not
-If loc47b8
+If loc4867
 Push false "&gt;" ">" register1 4 "lib"
 GetVariable
 Push "util"
@@ -2429,16 +2478,16 @@ Push "replace"
 CallMethod
 StoreRegister 1
 Pop
-loc47b8:Push "chatLinkAction" 1 register2 "indexOf"
+loc4867:Push "chatLinkAction" 1 register2 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
-If loc4836
+If loc48e5
 Push register8 1
 Equals2
 Not
-If loc481b
+If loc48ca
 Push register4 "<FONT size=\'18\' color=\'" "chatColor_array"
 GetVariable
 Push register9
@@ -2455,25 +2504,25 @@ Add2
 Add2
 StoreRegister 4
 Pop
-Jump loc4831
-loc481b:Push register4 "<FONT>" register1
+Jump loc48e0
+loc48ca:Push register4 "<FONT>" register1
 Add2
 Push "</FONT>"
 Add2
 Add2
 StoreRegister 4
 Pop
-loc4831:Jump loc4843
-loc4836:Push register4 register2
+loc48e0:Jump loc48f2
+loc48e5:Push register4 register2
 Add2
 StoreRegister 4
 Pop
-loc4843:Push register3
+loc48f2:Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc46d0
-loc4853:Push false "<img" "{@img#}" register4 4 "lib"
+Jump loc477f
+loc4902:Push false "<img" "{@img#}" register4 4 "lib"
 GetVariable
 Push "util"
 GetMember
@@ -2512,10 +2561,10 @@ GetMember
 Push "content_mc"
 GetMember
 Enumerate2
-loc491d:StoreRegister 0
+loc49cc:StoreRegister 0
 Push null
 Equals2
-If loc4ab2
+If loc4b61
 Push "line" register0
 SetVariable
 Push "container_mc"
@@ -2537,7 +2586,7 @@ TypeOf
 Push "movieclip"
 Equals2
 Not
-If loc4aad
+If loc4b5c
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -2559,7 +2608,7 @@ ToNumber
 Push register1
 Equals2
 Not
-If loc4aad
+If loc4b5c
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -2617,10 +2666,10 @@ GetMember
 Push "txt"
 GetMember
 Push "text" register2
-If loc4a6c
+If loc4b1b
 Push ""
-Jump loc4a84
-loc4a6c:Push "container_mc"
+Jump loc4b33
+loc4b1b:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -2628,7 +2677,7 @@ Push "txt"
 GetMember
 Push "text"
 GetMember
-loc4a84:SetMember
+loc4b33:SetMember
 Push 0.0 "container_mc"
 GetVariable
 Push "input_mc"
@@ -2640,8 +2689,8 @@ GetMember
 Push "onRelease"
 CallMethod
 Pop
-loc4aad:Jump loc491d
-loc4ab2:Push "chatColor_array"
+loc4b5c:Jump loc49cc
+loc4b61:Push "chatColor_array"
 GetVariable
 Push register1
 GetMember
@@ -2650,7 +2699,7 @@ GetMember
 Push 1
 Equals2
 Not
-If loc4b9c
+If loc4c4b
 Push "currentChannel" register1
 SetVariable
 Push "selectedChannel_txt"
@@ -2695,10 +2744,10 @@ GetMember
 Push "txt"
 GetMember
 Push "text" register2
-If loc4b6c
+If loc4c1b
 Push ""
-Jump loc4b84
-loc4b6c:Push "container_mc"
+Jump loc4c33
+loc4c1b:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -2706,15 +2755,15 @@ Push "txt"
 GetMember
 Push "text"
 GetMember
-loc4b84:SetMember
+loc4c33:SetMember
 Push register2 register3 true 3 "changeWhisperMode"
 CallFunction
 Pop
-Jump loc4bae
-loc4b9c:Push register2 register3 false 3 "changeWhisperMode"
+Jump loc4c5d
+loc4c4b:Push register2 register3 false 3 "changeWhisperMode"
 CallFunction
 Pop
-loc4bae:Push "saveText" ""
+loc4c5d:Push "saveText" ""
 SetVariable
 }
 DefineFunction2 "addLink" 2 7 false false true false true false true false false 2 "htmlStr" 6 "str"  {
@@ -2736,7 +2785,7 @@ GetVariable
 Greater
 Not
 Not
-If loc4cd6
+If loc4d85
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -2766,11 +2815,11 @@ Push register1 0.0
 Greater
 Not
 Not
-If loc4c7e
+If loc4d2d
 Push 0.0
 StoreRegister 1
 Pop
-loc4c7e:Push "sI" register1 1
+loc4d2d:Push "sI" register1 1
 Add2
 Push "eI" register1 "dummy"
 GetVariable
@@ -2794,7 +2843,7 @@ Push "htmlText" "saveText"
 GetVariable
 SetMember
 }
-loc4cd6:DefineFunction2 "addInputText" 1 3 false false true false true false true false false 2 "str"  {
+loc4d85:DefineFunction2 "addInputText" 1 3 false false true false true false true false false 2 "str"  {
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -2813,7 +2862,7 @@ GetVariable
 Greater
 Not
 Not
-If loc4dc5
+If loc4e74
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -2843,11 +2892,11 @@ Push register1 0.0
 Greater
 Not
 Not
-If loc4d9a
+If loc4e49
 Push 0.0
 StoreRegister 1
 Pop
-loc4d9a:Push "container_mc"
+loc4e49:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -2860,7 +2909,7 @@ Push 0.0 "setFocusAtInput"
 CallFunction
 Pop
 }
-loc4dc5:DefineFunction2 "OxToShap" 1 2 false false true false true false true false false 1 "str"  {
+loc4e74:DefineFunction2 "OxToShap" 1 2 false false true false true false true false false 1 "str"  {
 Push "#" 16 1 register1 "toString"
 CallMethod
 Add2
@@ -2870,10 +2919,10 @@ DefineFunction2 "setChatOptionMenu" 1 10 false false true false true false false
 Push 0.0
 StoreRegister 3
 Pop
-loc4e2a:Push register3 30
+loc4ed9:Push register3 30
 Less2
 Not
-If loc4e70
+If loc4f1f
 Push 0.0 "container_mc"
 GetVariable
 Push "optionMenu_mc"
@@ -2888,8 +2937,8 @@ Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc4e2a
-loc4e70:Push "\n" register9 2 "lib"
+Jump loc4ed9
+loc4f1f:Push "\n" register9 2 "lib"
 GetVariable
 Push "util"
 GetMember
@@ -2904,34 +2953,34 @@ Equals2
 Not
 PushDuplicate
 Not
-If loc4eae
+If loc4f5d
 Pop
 Push register9 null
 Equals2
 Not
-loc4eae:PushDuplicate
+loc4f5d:PushDuplicate
 Not
-If loc4ebf
+If loc4f6e
 Pop
 Push register9 ""
 Equals2
 Not
-loc4ebf:Not
-If loc5433
+loc4f6e:Not
+If loc54e2
 Push 0.0
 StoreRegister 3
 Pop
-loc4ed6:Push register3 register4 "length"
+loc4f85:Push register3 register4 "length"
 GetMember
 Less2
 Not
-If loc4f66
+If loc5015
 Push register4 "length"
 GetMember
 Push 1
 Greater
 Not
-If loc4f56
+If loc5005
 Push 0.0 "container_mc"
 GetVariable
 Push "optionMenu_mc"
@@ -2955,19 +3004,19 @@ GetVariable
 Multiply
 Add2
 SetMember
-loc4f56:Push register3
+loc5005:Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc4ed6
-loc4f66:Push 0.0
+Jump loc4f85
+loc5015:Push 0.0
 StoreRegister 3
 Pop
-loc4f77:Push register3 register4 "length"
+loc5026:Push register3 register4 "length"
 GetMember
 Less2
 Not
-If loc53de
+If loc548d
 Push "container_mc"
 GetVariable
 Push "optionMenu_mc"
@@ -2995,7 +3044,7 @@ GetMember
 Push 1
 Greater
 Not
-If loc5013
+If loc50c2
 Push register5 "size" 16
 SetMember
 Push register5 1 register2 "txt"
@@ -3003,7 +3052,7 @@ GetMember
 Push "setTextFormat"
 CallMethod
 Pop
-loc5013:Push register2 "txt"
+loc50c2:Push register2 "txt"
 GetMember
 Push "verticalAlign" "center"
 SetMember
@@ -3154,19 +3203,19 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loc528b
+If loc533a
 Push 0.0 "ToGame_Chat_RequestAddTab"
 CallFunction
 Pop
-Jump loc53bc
-loc528b:Push register1 "_parent"
+Jump loc546b
+loc533a:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 1
 Equals2
 Not
-If loc5312
+If loc53c1
 Push "chatObjects"
 GetVariable
 Push "firstIndex"
@@ -3197,15 +3246,15 @@ GetMember
 Push 1 "ToGame_Chat_SaveLock"
 CallFunction
 Pop
-Jump loc53bc
-loc5312:Push register1 "_parent"
+Jump loc546b
+loc53c1:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 2
 Equals2
 Not
-If loc535b
+If loc540a
 Push "tabArray"
 GetVariable
 Push "tab"
@@ -3218,31 +3267,31 @@ Pop
 Push register3 1 "ToGame_Chat_RequestOpenChatTabOptionUI"
 CallFunction
 Pop
-Jump loc53bc
-loc535b:Push register1 "_parent"
+Jump loc546b
+loc540a:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 3
 Equals2
 Not
-If loc538e
+If loc543d
 Push 0.0 "ToGame_Chat_RequestInitPos"
 CallFunction
 Pop
-Jump loc53bc
-loc538e:Push register1 "_parent"
+Jump loc546b
+loc543d:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 4
 Equals2
 Not
-If loc53bc
+If loc546b
 Push 0.0 "ToGame_Chat_RequestInitChat"
 CallFunction
 Pop
-loc53bc:Push 0.0 "chatOptionOutEnd"
+loc546b:Push 0.0 "chatOptionOutEnd"
 CallFunction
 Pop
 }
@@ -3251,8 +3300,8 @@ Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc4f77
-loc53de:Push "container_mc"
+Jump loc5026
+loc548d:Push "container_mc"
 GetVariable
 Push "optionMenu_mc"
 GetMember
@@ -3279,7 +3328,7 @@ GetMember
 Subtract
 SetMember
 }
-loc5433:DefineFunction "lock" 0  {
+loc54e2:DefineFunction "lock" 0  {
 Push "chatObjects"
 GetVariable
 Push "firstIndex"
@@ -3288,7 +3337,7 @@ GetMember
 Push "lock"
 GetMember
 Not
-If loc548b
+If loc553a
 Push "unlockChatStr"
 GetVariable
 Push 1 "container_mc"
@@ -3302,8 +3351,8 @@ GetMember
 Push "setText"
 CallMethod
 Pop
-Jump loc54b7
-loc548b:Push "lockChatStr"
+Jump loc5566
+loc553a:Push "lockChatStr"
 GetVariable
 Push 1 "container_mc"
 GetVariable
@@ -3317,7 +3366,7 @@ Push "setText"
 CallMethod
 Pop
 }
-loc54b7:DefineFunction "chatOptionOutClear" 0  {
+loc5566:DefineFunction "chatOptionOutClear" 0  {
 Push "container_mc"
 GetVariable
 Push "optionMenu_mc"
@@ -3375,7 +3424,7 @@ Push 50
 Less2
 Not
 Not
-If loc560c
+If loc56bb
 Push 0.0 "startCount"
 CallFunction
 Pop
@@ -3386,7 +3435,7 @@ Push register1 "onEnterFrame"
 Delete
 Pop
 }
-loc560c:SetMember
+loc56bb:SetMember
 }
 DefineFunction2 "defaultPosInit" 0 3 false false true false true false true false false  {
 Push 0.0 "initMainChatPos"
@@ -3395,13 +3444,13 @@ Pop
 Push 0.0
 StoreRegister 1
 Pop
-loc5648:Push register1 "viewerArray"
+loc56f7:Push register1 "viewerArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc56a9
+If loc5758
 Push "viewerArray"
 GetVariable
 Push register1
@@ -3425,9 +3474,9 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc5648
+Jump loc56f7
 }
-loc56a9:DefineFunction2 "setInteractionMenu" 1 8 false false true false true false false true false 7 "dataList"  {
+loc5758:DefineFunction2 "setInteractionMenu" 1 8 false false true false true false false true false 7 "dataList"  {
 Push "menu" "container_mc"
 GetVariable
 Push "interactionMenu_mc"
@@ -3436,10 +3485,10 @@ DefineLocal
 Push 1
 StoreRegister 3
 Pop
-loc56ee:Push register3 30
+loc579d:Push register3 30
 Less2
 Not
-If loc572f
+If loc57de
 Push 0.0 "menu"
 GetVariable
 Push "line" register3
@@ -3452,8 +3501,8 @@ Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc56ee
-loc572f:Push "\n" 1 register7 "split"
+Jump loc579d
+loc57de:Push "\n" 1 register7 "split"
 CallMethod
 StoreRegister 5
 Pop
@@ -3465,7 +3514,7 @@ GetMember
 Push "undefined"
 Equals2
 PushDuplicate
-If loc577f
+If loc582e
 Pop
 Push register5 register5 "length"
 GetMember
@@ -3474,8 +3523,8 @@ Subtract
 GetMember
 Push ""
 Equals2
-loc577f:Not
-If loc57a9
+loc582e:Not
+If loc5858
 Push 1 register5 "length"
 GetMember
 Push 1
@@ -3483,39 +3532,39 @@ Subtract
 Push 2 register5 "splice"
 CallMethod
 Pop
-loc57a9:Push register7 undefined
+loc5858:Push register7 undefined
 Equals2
 Not
 PushDuplicate
 Not
-If loc57c1
+If loc5870
 Pop
 Push register7 null
 Equals2
 Not
-loc57c1:PushDuplicate
+loc5870:PushDuplicate
 Not
-If loc57d2
+If loc5881
 Pop
 Push register7 ""
 Equals2
 Not
-loc57d2:Not
-If loc5acd
+loc5881:Not
+If loc5b7c
 Push 0.0
 StoreRegister 3
 Pop
-loc57e9:Push register3 register5 "length"
+loc5898:Push register3 register5 "length"
 GetMember
 Less2
 Not
-If loc5a61
+If loc5b10
 Push register5 "length"
 GetMember
 Push 1
 Greater
 Not
-If loc5a51
+If loc5b00
 Push 0.0 "menu"
 GetVariable
 Push "getNextHighestDepth"
@@ -3547,7 +3596,7 @@ Push 1
 Equals2
 Not
 Not
-If loc5a51
+If loc5b00
 Push "menu"
 GetVariable
 Push "line" register3
@@ -3576,7 +3625,7 @@ GetMember
 Push 1
 Greater
 Not
-If loc592e
+If loc59dd
 Push register6 "size" 16
 SetMember
 Push register6 1 register2 "txt"
@@ -3584,7 +3633,7 @@ GetMember
 Push "setTextFormat"
 CallMethod
 Pop
-loc592e:Push register2 "txt"
+loc59dd:Push register2 "txt"
 GetMember
 Push "verticalAlign" "center"
 SetMember
@@ -3653,12 +3702,12 @@ CallFunction
 Pop
 }
 SetMember
-loc5a51:Push register3
+loc5b00:Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc57e9
-loc5a61:Push "menu"
+Jump loc5898
+loc5b10:Push "menu"
 GetVariable
 Push "bg"
 GetMember
@@ -3691,10 +3740,10 @@ GetMember
 Push "_visible" false
 SetMember
 }
-loc5acd:DefineFunction2 "interactionMenuClosing" 1 3 false false true false true false false true false 2 "rightNow"  {
+loc5b7c:DefineFunction2 "interactionMenuClosing" 1 3 false false true false true false false true false 2 "rightNow"  {
 Push register2
 Not
-If loc5b31
+If loc5be0
 Push "container_mc"
 GetVariable
 Push "interactionMenu_mc"
@@ -3708,8 +3757,8 @@ GetMember
 Push "onEnterFrame"
 Delete
 Pop
-Jump loc5ba8
-loc5b31:Push "container_mc"
+Jump loc5c57
+loc5be0:Push "container_mc"
 GetVariable
 Push "interactionMenu_mc"
 GetMember
@@ -3731,23 +3780,23 @@ Push 720
 Less2
 Not
 Not
-If loc5ba7
+If loc5c56
 Push register1 "_visible" false
 SetMember
 Push register1 "onEnterFrame"
 Delete
 Pop
 }
-loc5ba7:SetMember
+loc5c56:SetMember
 }
-loc5ba8:DefineFunction2 "createNewChatObj" 0 2 false false true false true false true false false  {
+loc5c57:DefineFunction2 "createNewChatObj" 0 2 false false true false true false true false false  {
 Push 0.0 "Object"
 NewObject
 StoreRegister 1
 Pop
 Push register1 "isMaxScroll" true
 SetMember
-Push register1 "scroll" 8
+Push register1 "scroll" 0
 SetMember
 Push register1 "alpha" "mainTabAlpha"
 GetVariable
@@ -3777,10 +3826,10 @@ Pop
 Push 0.0
 StoreRegister 1
 Pop
-loc5c7c:Push register1 register3
+loc5d2b:Push register1 register3
 Less2
 Not
-If loc5cd6
+If loc5d85
 Push "chatObjects"
 GetVariable
 Push register1
@@ -3789,7 +3838,7 @@ Push undefined
 Equals2
 Not
 PushDuplicate
-If loc5cb5
+If loc5d64
 Pop
 Push "chatObjects"
 GetVariable
@@ -3798,18 +3847,18 @@ GetMember
 Push null
 Equals2
 Not
-loc5cb5:Not
-If loc5cc6
+loc5d64:Not
+If loc5d75
 Push register2
 Increment
 StoreRegister 2
 Pop
-loc5cc6:Push register1
+loc5d75:Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc5c7c
-loc5cd6:Push register2
+Jump loc5d2b
+loc5d85:Push register2
 Return
 }
 DefineFunction2 "moveTab" 1 5 false false true false true false true false false 4 "index"  {
@@ -3819,10 +3868,10 @@ Push "length"
 GetMember
 StoreRegister 1
 Pop
-loc5d06:Push register1 register4
+loc5db5:Push register1 register4
 Greater
 Not
-If loc5da6
+If loc5e55
 Push "tab"
 GetVariable
 Push "txt_array"
@@ -3862,9 +3911,9 @@ Push register1
 Decrement
 StoreRegister 1
 Pop
-Jump loc5d06
+Jump loc5db5
 }
-loc5da6:DefineFunction2 "removeSepaTab" 1 2 false false true false true false true false false 1 "index"  {
+loc5e55:DefineFunction2 "removeSepaTab" 1 2 false false true false true false true false false 1 "index"  {
 Push register1 1 "ToGame_Chat_RemoveTab"
 CallFunction
 Pop
@@ -3886,13 +3935,13 @@ DefineFunction2 "removeTab" 2 6 false false true false true false true false fal
 Push register4
 StoreRegister 1
 Pop
-loc5e3b:Push register1 "tabArray"
+loc5eea:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc5ef9
+If loc5fa8
 Push "tab"
 GetVariable
 Push "txt_array"
@@ -3944,14 +3993,14 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc5e3b
-loc5ef9:Push register5
+Jump loc5eea
+loc5fa8:Push register5
 Not
-If loc5f15
+If loc5fc4
 Push 0.0 "changeMainTab"
 CallFunction
 Pop
-loc5f15:Push 0.0 "tabArray"
+loc5fc4:Push 0.0 "tabArray"
 GetVariable
 Push "length"
 GetMember
@@ -3970,13 +4019,13 @@ Pop
 Push register4
 StoreRegister 1
 Pop
-loc5f69:Push register1 "tabArray"
+loc6018:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc5fa9
+If loc6058
 Push "chatObjects"
 GetVariable
 Push "tabArray"
@@ -3990,8 +4039,8 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc5f69
-loc5fa9:Push 0.0 "refreshTexts"
+Jump loc6018
+loc6058:Push 0.0 "refreshTexts"
 CallFunction
 Pop
 Push 3 undefined 2 "tab"
@@ -4004,13 +4053,13 @@ DefineFunction2 "resetTab" 0 3 false false true false true false true false fals
 Push 0.0
 StoreRegister 1
 Pop
-loc5ff6:Push register1 "tabArray"
+loc60a5:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc6055
+If loc6104
 Push 0.0 register1 2 "tab"
 GetVariable
 Push "setVisible"
@@ -4029,8 +4078,8 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc5ff6
-loc6055:Push "viewerArray" 0.0
+Jump loc60a5
+loc6104:Push "viewerArray" 0.0
 InitArray
 SetVariable
 Push "chatObjects" 0.0
@@ -4044,10 +4093,10 @@ SetVariable
 Push "UI"
 GetVariable
 Enumerate2
-loc6099:StoreRegister 0
+loc6148:StoreRegister 0
 Push null
 Equals2
-If loc611b
+If loc61ca
 Push "mc" register0
 SetVariable
 Push "UI"
@@ -4063,7 +4112,7 @@ Push "movieclip"
 Equals2
 PushDuplicate
 Not
-If loc60fe
+If loc61ad
 Pop
 Push 6 0.0 2 register2 "_name"
 GetMember
@@ -4071,13 +4120,13 @@ Push "substr"
 CallMethod
 Push "viewer"
 Equals2
-loc60fe:Not
-If loc6116
+loc61ad:Not
+If loc61c5
 Push 0.0 register2 "removeMovieClip"
 CallMethod
 Pop
-loc6116:Jump loc6099
-loc611b:Push 1 undefined 2 "setEnableMenuLine"
+loc61c5:Jump loc6148
+loc61ca:Push 1 undefined 2 "setEnableMenuLine"
 CallFunction
 Pop
 Push 0.0 "changeMainTab"
@@ -4160,134 +4209,6 @@ Push "glow"
 GetMember
 Push "_visible" false
 SetMember
-Push "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "onEnterFrame"
-DefineFunction2 "" 0 2 false false true false true false false true false  {
-Push "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "defaultBarSizeRatio"
-GetMember
-Push 1
-Equals2
-Not
-If loc648f
-Push "mc"
-GetVariable
-Push "txt"
-GetMember
-Push 1 "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "setTextField"
-CallMethod
-Pop
-Push "mc"
-GetVariable
-Push "txt"
-GetMember
-Push 1 "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "setWheel"
-CallMethod
-Pop
-Push "mc"
-GetVariable
-Push 1 "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "addListener"
-CallMethod
-Pop
-Push "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "defaultBarSizeRatio" 0.3333333333333333
-SetMember
-Push "mc"
-GetVariable
-Push "onScroll"
-DefineFunction2 "" 1 3 false false true false true false false true false 2 "delta"  {
-Push register2 0.0
-Less2
-Not
-If loc63d7
-Push register1 "txt"
-GetMember
-Push "scroll" register1 "txt"
-GetMember
-Push "scroll"
-GetMember
-Push 1
-Add2
-SetMember
-Jump loc63f9
-loc63d7:Push register1 "txt"
-GetMember
-Push "scroll" register1 "txt"
-GetMember
-Push "scroll"
-GetMember
-Push 1
-Subtract
-SetMember
-}
-loc63f9:SetMember
-Push "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "onMaxScroll"
-DefineFunction2 "" 0 2 false false true false true false false true false  {
-Push register1 "glow" false
-SetMember
-}
-SetMember
-Push "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "scroll" "mc"
-GetVariable
-Push "txt"
-GetMember
-Push "maxscroll"
-GetMember
-SetMember
-Push "height"
-GetVariable
-Push "outputTxt_yGap"
-GetVariable
-Add2
-Push 1 "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "resize"
-CallMethod
-Pop
-Push "mc"
-GetVariable
-Push "scrollBar"
-GetMember
-Push "barBg"
-GetMember
-Push "_visible" false
-SetMember
-Push register1 "onEnterFrame"
-Delete
-Pop
-}
-loc648f:SetMember
 Push "mc"
 GetVariable
 Push "_x" register17
@@ -4443,34 +4364,34 @@ Equals2
 Not
 PushDuplicate
 Not
-If loc66a1
+If loc657a
 Pop
 Push register9 null
 Equals2
 Not
-loc66a1:PushDuplicate
+loc657a:PushDuplicate
 Not
-If loc66b2
+If loc658b
 Pop
 Push register9 ""
 Equals2
 Not
-loc66b2:Not
-If loc6bb9
+loc658b:Not
+If loc6a92
 Push 0.0
 StoreRegister 5
 Pop
-loc66c9:Push register5 register6 "length"
+loc65a2:Push register5 register6 "length"
 GetMember
 Less2
 Not
-If loc6752
+If loc662b
 Push register6 "length"
 GetMember
 Push 1
 Greater
 Not
-If loc6742
+If loc661b
 Push 0.0 "mc"
 GetVariable
 Push "tabOptionMenu_mc"
@@ -4491,19 +4412,19 @@ Push register4 "_y" register5 "lineH"
 GetVariable
 Multiply
 SetMember
-loc6742:Push register5
+loc661b:Push register5
 Increment
 StoreRegister 5
 Pop
-Jump loc66c9
-loc6752:Push 0.0
+Jump loc65a2
+loc662b:Push 0.0
 StoreRegister 5
 Pop
-loc6763:Push register5 register6 "length"
+loc663c:Push register5 register6 "length"
 GetMember
 Less2
 Not
-If loc6b8a
+If loc6a63
 Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
@@ -4531,7 +4452,7 @@ GetMember
 Push 1
 Greater
 Not
-If loc6800
+If loc66d9
 Push register7 "size" 16
 SetMember
 Push register7 1 register4 "txt"
@@ -4539,7 +4460,7 @@ GetMember
 Push "setTextFormat"
 CallMethod
 Pop
-loc6800:Push register4 "txt"
+loc66d9:Push register4 "txt"
 GetMember
 Push "verticalAlign" "center"
 SetMember
@@ -4687,19 +4608,19 @@ GetMember
 Push -1
 Equals2
 Not
-If loc6a69
+If loc6942
 Push 1 1 "addTab"
 CallFunction
 Pop
-Jump loc6b61
-loc6a69:Push register1 "_parent"
+Jump loc6a3a
+loc6942:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 0.0
 Equals2
 Not
-If loc6aa8
+If loc6981
 Push "mc"
 GetVariable
 Push "stat"
@@ -4707,43 +4628,43 @@ GetMember
 Push 1 "removeSepaTab"
 CallFunction
 Pop
-Jump loc6b61
-loc6aa8:Push register1 "_parent"
+Jump loc6a3a
+loc6981:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 1
 Equals2
 Not
-If loc6ade
+If loc69b7
 Push "index"
 GetVariable
 Push 1 "ToGame_Chat_RequestOpenChatTabOptionUI"
 CallFunction
 Pop
-Jump loc6b61
-loc6ade:Push register1 "_parent"
+Jump loc6a3a
+loc69b7:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 2
 Equals2
 Not
-If loc6b14
+If loc69ed
 Push "index"
 GetVariable
 Push 1 "ToGame_Chat_RequestPrivateChannelUI"
 CallFunction
 Pop
-Jump loc6b61
-loc6b14:Push register1 "_parent"
+Jump loc6a3a
+loc69ed:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 3
 Equals2
 Not
-If loc6b61
+If loc6a3a
 Push "mc"
 GetVariable
 Push "tabArray"
@@ -4756,7 +4677,7 @@ Pop
 Push 0.0 "saveTabInfo"
 CallFunction
 Pop
-loc6b61:Push 1 "mc"
+loc6a3a:Push 1 "mc"
 GetVariable
 Push 2 "startSepaTabOptionOut"
 CallFunction
@@ -4767,8 +4688,8 @@ Push register5
 Increment
 StoreRegister 5
 Pop
-Jump loc6763
-loc6b8a:Push "mc"
+Jump loc663c
+loc6a63:Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
 GetMember
@@ -4782,7 +4703,7 @@ Multiply
 Push 18
 Add2
 SetMember
-loc6bb9:Push "mc"
+loc6a92:Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
 GetMember
@@ -4946,12 +4867,12 @@ Push 1
 Equals2
 Not
 Not
-If loc6e48
+If loc6d21
 Push register3 register1 register4 register2 1 0.0 "mc"
 GetVariable
 StartDrag
 }
-loc6e48:Push 1 "mc"
+loc6d21:Push 1 "mc"
 GetVariable
 Push "btn"
 GetMember
@@ -5082,12 +5003,12 @@ GetMember
 Push 1
 Equals2
 Not
-If loc7050
+If loc6f29
 Push 2 1 register1 "gotoAndStop"
 CallMethod
 Pop
 }
-loc7050:SetMember
+loc6f29:SetMember
 Push "mc"
 GetVariable
 Push "option_btn"
@@ -5103,12 +5024,12 @@ GetMember
 Push 2
 Equals2
 Not
-If loc70a9
+If loc6f82
 Push 1 1 register1 "gotoAndStop"
 CallMethod
 Pop
 }
-loc70a9:StoreRegister 0
+loc6f82:StoreRegister 0
 SetMember
 Push register0
 SetMember
@@ -5150,7 +5071,7 @@ Push 3
 Equals2
 Not
 Not
-If loc737f
+If loc7258
 Push 3 1 register1 "gotoAndStop"
 CallMethod
 Pop
@@ -5185,7 +5106,7 @@ Push "yPixelToRatio"
 CallMethod
 Greater
 Not
-If loc721c
+If loc70f5
 Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
@@ -5203,8 +5124,8 @@ GetMember
 Multiply
 Add2
 SetMember
-Jump loc726a
-loc721c:Push "mc"
+Jump loc7143
+loc70f5:Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
 GetMember
@@ -5228,7 +5149,7 @@ GetMember
 Multiply
 Subtract
 SetMember
-loc726a:Push 80 register2 "_xmouse"
+loc7143:Push 80 register2 "_xmouse"
 GetMember
 Push 1 "lib"
 GetVariable
@@ -5240,7 +5161,7 @@ Push "xPixelToRatio"
 CallMethod
 Greater
 Not
-If loc72dd
+If loc71b6
 Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
@@ -5258,8 +5179,8 @@ GetMember
 Multiply
 Subtract
 SetMember
-Jump loc732b
-loc72dd:Push "mc"
+Jump loc7204
+loc71b6:Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
 GetMember
@@ -5283,7 +5204,7 @@ GetMember
 Multiply
 Add2
 SetMember
-loc732b:Push "mc"
+loc7204:Push "mc"
 GetVariable
 Push 1 "startSepaTabOptionOut"
 CallFunction
@@ -5300,19 +5221,19 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loc737a
+If loc7253
 Push 0.0 "chatOptionOutEnd"
 CallFunction
 Pop
-loc737a:Jump loc73a3
-loc737f:Push 1 1 register1 "gotoAndStop"
+loc7253:Jump loc727c
+loc7258:Push 1 1 register1 "gotoAndStop"
 CallMethod
 Pop
 Push 0.0 "chatOptionOutEnd"
 CallFunction
 Pop
 }
-loc73a3:SetMember
+loc727c:SetMember
 Push 1 "$032001" 1 "lib"
 GetVariable
 Push "util"
@@ -5357,7 +5278,7 @@ SetMember
 Push register3 "gbUIMode"
 GetMember
 Not
-If loc7476
+If loc734f
 Push "mc"
 GetVariable
 Push "expander"
@@ -5370,8 +5291,8 @@ Push "option_btn"
 GetMember
 Push "_visible" true
 SetMember
-Jump loc74a0
-loc7476:Push "mc"
+Jump loc7379
+loc734f:Push "mc"
 GetVariable
 Push "expander"
 GetMember
@@ -5383,7 +5304,7 @@ Push "option_btn"
 GetMember
 Push "_visible" false
 SetMember
-loc74a0:Push "mc"
+loc7379:Push "mc"
 GetVariable
 Push 1 "startCountSepaTab"
 CallFunction
@@ -5400,7 +5321,7 @@ SetMember
 Push register2
 Not
 Not
-If loc759c
+If loc7475
 Push "mc"
 GetVariable
 Push "onEnterFrame"
@@ -5415,7 +5336,7 @@ Push 50
 Less2
 Not
 Not
-If loc7596
+If loc746f
 Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
@@ -5438,9 +5359,9 @@ Push "onEnterFrame"
 Delete
 Pop
 }
-loc7596:SetMember
-Jump loc75ea
-loc759c:Push "mc"
+loc746f:SetMember
+Jump loc74c3
+loc7475:Push "mc"
 GetVariable
 Push "tabOptionMenu_mc"
 GetMember
@@ -5462,7 +5383,7 @@ Push "onEnterFrame"
 Delete
 Pop
 }
-loc75ea:DefineFunction2 "clearSepaTabOptionOut" 1 2 false false true false true false true false false 1 "mc"  {
+loc74c3:DefineFunction2 "clearSepaTabOptionOut" 1 2 false false true false true false true false false 1 "mc"  {
 Push register1 "onEnterFrame"
 Delete
 Pop
@@ -5483,13 +5404,13 @@ Pop
 Push 0.0
 StoreRegister 1
 Pop
-loc7697:Push register1 "tabArray"
+loc7570:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc76d7
+If loc75b0
 Push "chatObjects"
 GetVariable
 Push "tabArray"
@@ -5503,8 +5424,8 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc7697
-loc76d7:Push 1 "chatObjects"
+Jump loc7570
+loc75b0:Push 1 "chatObjects"
 GetVariable
 Push register3 "stat"
 GetMember
@@ -5519,13 +5440,13 @@ Pop
 Push 0.0
 StoreRegister 1
 Pop
-loc7715:Push register1 "viewerArray"
+loc75ee:Push register1 "viewerArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc7756
+If loc762f
 Push "chatObjects"
 GetVariable
 Push "viewerArray"
@@ -5539,8 +5460,8 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc7715
-loc7756:Push "chatObjects"
+Jump loc75ee
+loc762f:Push "chatObjects"
 GetVariable
 Push register3 "stat"
 GetMember
@@ -5625,7 +5546,7 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-loc78be:Push register2 "chatObjects"
+loc7797:Push register2 "chatObjects"
 GetVariable
 Push register3
 GetMember
@@ -5635,7 +5556,7 @@ Push "length"
 GetMember
 Less2
 Not
-If loc79a5
+If loc787e
 Push "chatObjects"
 GetVariable
 Push register3
@@ -5648,7 +5569,7 @@ ToNumber
 Push 1
 Equals2
 PushDuplicate
-If loc7931
+If loc780a
 Pop
 Push "chatObjects"
 GetVariable
@@ -5661,8 +5582,8 @@ GetMember
 ToNumber
 Push 0.0
 Equals2
-loc7931:Not
-If loc7995
+loc780a:Not
+If loc786e
 Push register4 register2 "\t"
 Add2
 Add2
@@ -5694,21 +5615,21 @@ Add2
 Add2
 StoreRegister 4
 Pop
-loc7995:Push register2
+loc786e:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc78be
-loc79a5:Push 0.0
+Jump loc7797
+loc787e:Push 0.0
 StoreRegister 2
 Pop
-loc79b6:Push register2 "chatColor_array"
+loc788f:Push register2 "chatColor_array"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc7a4f
+If loc7928
 Push "chatColor_array"
 GetVariable
 Push register2
@@ -5718,7 +5639,7 @@ Equals2
 Not
 PushDuplicate
 Not
-If loc79f9
+If loc78d2
 Pop
 Push "chatColor_array"
 GetVariable
@@ -5727,8 +5648,8 @@ GetMember
 Push "undefined"
 Equals2
 Not
-loc79f9:Not
-If loc7a3f
+loc78d2:Not
+If loc7918
 Push register6 register2 "\t"
 Add2
 Add2
@@ -5747,12 +5668,12 @@ Add2
 Add2
 StoreRegister 6
 Pop
-loc7a3f:Push register2
+loc7918:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc79b6
-loc7a4f:Push register6 "chatObjects"
+Jump loc788f
+loc7928:Push register6 "chatObjects"
 GetVariable
 Push register3
 GetMember
@@ -5787,34 +5708,34 @@ Equals2
 Not
 PushDuplicate
 Not
-If loc7b0a
+If loc79e3
 Pop
 Push register9 null
 Equals2
 Not
-loc7b0a:PushDuplicate
+loc79e3:PushDuplicate
 Not
-If loc7b1b
+If loc79f4
 Pop
 Push register9 ""
 Equals2
 Not
-loc7b1b:Not
-If loc807e
+loc79f4:Not
+If loc7f57
 Push 0.0
 StoreRegister 3
 Pop
-loc7b32:Push register3 register5 "length"
+loc7a0b:Push register3 register5 "length"
 GetMember
 Less2
 Not
-If loc7bc7
+If loc7aa0
 Push register5 "length"
 GetMember
 Push 1
 Greater
 Not
-If loc7bb7
+If loc7a90
 Push 0.0 "container_mc"
 GetVariable
 Push "output_mc"
@@ -5839,19 +5760,19 @@ Push register8 "_y" register3 "lineH"
 GetVariable
 Multiply
 SetMember
-loc7bb7:Push register3
+loc7a90:Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc7b32
-loc7bc7:Push 0.0
+Jump loc7a0b
+loc7aa0:Push 0.0
 StoreRegister 3
 Pop
-loc7bd8:Push register3 register5 "length"
+loc7ab1:Push register3 register5 "length"
 GetMember
 Less2
 Not
-If loc8049
+If loc7f22
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -5881,7 +5802,7 @@ GetMember
 Push 1
 Greater
 Not
-If loc7c7b
+If loc7b54
 Push register7 "size" 16
 SetMember
 Push register7 1 register2 "txt"
@@ -5889,7 +5810,7 @@ GetMember
 Push "setTextFormat"
 CallMethod
 Pop
-loc7c7b:Push register2 "txt"
+loc7b54:Push register2 "txt"
 GetMember
 Push "verticalAlign" "center"
 SetMember
@@ -6045,7 +5966,7 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loc7f67
+If loc7e40
 Push "tab"
 GetVariable
 Push "activedNum"
@@ -6054,7 +5975,7 @@ Push 0.0
 Equals2
 Not
 Not
-If loc7f62
+If loc7e3b
 Push "tabArray"
 GetVariable
 Push "tab"
@@ -6078,15 +5999,15 @@ SetMember
 Push register3 1 "ToGame_Chat_RemoveTab"
 CallFunction
 Pop
-loc7f62:Jump loc8026
-loc7f67:Push register1 "_parent"
+loc7e3b:Jump loc7eff
+loc7e40:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 1
 Equals2
 Not
-If loc7fb0
+If loc7e89
 Push "tabArray"
 GetVariable
 Push "tab"
@@ -6099,15 +6020,15 @@ Pop
 Push register2 1 "ToGame_Chat_RequestOpenChatTabOptionUI"
 CallFunction
 Pop
-Jump loc8026
-loc7fb0:Push register1 "_parent"
+Jump loc7eff
+loc7e89:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 2
 Equals2
 Not
-If loc7ff9
+If loc7ed2
 Push "tabArray"
 GetVariable
 Push "tab"
@@ -6120,19 +6041,19 @@ Pop
 Push register2 1 "ToGame_Chat_RequestPrivateChannelUI"
 CallFunction
 Pop
-Jump loc8026
-loc7ff9:Push register1 "_parent"
+Jump loc7eff
+loc7ed2:Push register1 "_parent"
 GetMember
 Push "stat"
 GetMember
 Push 3
 Equals2
 Not
-If loc8026
+If loc7eff
 Push 0.0 "ToGame_Chat_RequestAddTab"
 CallFunction
 Pop
-loc8026:Push 1 1 "startTabOptionOut"
+loc7eff:Push 1 1 "startTabOptionOut"
 CallFunction
 Pop
 }
@@ -6141,8 +6062,8 @@ Push register3
 Increment
 StoreRegister 3
 Pop
-Jump loc7bd8
-loc8049:Push "container_mc"
+Jump loc7ab1
+loc7f22:Push "container_mc"
 GetVariable
 Push "output_mc"
 GetMember
@@ -6158,7 +6079,7 @@ Multiply
 Push 18
 Add2
 SetMember
-loc807e:Push "container_mc"
+loc7f57:Push "container_mc"
 GetVariable
 Push "output_mc"
 GetMember
@@ -6202,7 +6123,7 @@ Push 30
 Less2
 Not
 Not
-If loc8166
+If loc803f
 Push register1 "onEnterFrame"
 Delete
 Pop
@@ -6212,10 +6133,10 @@ Push 0.0 "startCount"
 CallFunction
 Pop
 }
-loc8166:SetMember
+loc803f:SetMember
 Push register2
 Not
-If loc81b7
+If loc8090
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -6236,7 +6157,7 @@ SetMember
 Push 0.0 "startCount"
 CallFunction
 Pop
-loc81b7:Push 0.0 "startCount"
+loc8090:Push 0.0 "startCount"
 CallFunction
 Pop
 }
@@ -6258,13 +6179,13 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-loc8232:Push register2 "tabArray"
+loc810b:Push register2 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc82c2
+If loc819b
 Push "tabArray"
 GetVariable
 Push register2
@@ -6302,17 +6223,17 @@ Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc8232
-loc82c2:Push 0.0
+Jump loc810b
+loc819b:Push 0.0
 StoreRegister 2
 Pop
-loc82d3:Push register2 "viewerArray"
+loc81ac:Push register2 "viewerArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loc8387
+If loc8260
 Push "viewerArray"
 GetVariable
 Push register2
@@ -6362,8 +6283,8 @@ Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc82d3
-loc8387:Push 0.0 "ToGame_Chat_EndSaveTabInfo"
+Jump loc81ac
+loc8260:Push 0.0 "ToGame_Chat_EndSaveTabInfo"
 CallFunction
 Pop
 }
@@ -6517,7 +6438,7 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loc8f2e
+If loc8d50
 Push "resizeTarget"
 GetVariable
 Push "_parent"
@@ -6528,19 +6449,19 @@ Push "output_mc"
 GetMember
 Equals2
 Not
-If loc86d9
+If loc85b2
 Push 0.0 "resetCount"
 CallFunction
 Pop
-Jump loc86f2
-loc86d9:Push "resizeTarget"
+Jump loc85cb
+loc85b2:Push "resizeTarget"
 GetVariable
 Push "_parent"
 GetMember
 Push 1 "resetCountSepaTab"
 CallFunction
 Pop
-loc86f2:Push 3 1 register1 "gotoAndStop"
+loc85cb:Push 3 1 register1 "gotoAndStop"
 CallMethod
 Pop
 Push register1 "dragging" "dragerDragging" true
@@ -6595,7 +6516,7 @@ Add2
 Less2
 PushDuplicate
 Not
-If loc87e1
+If loc86ba
 Pop
 Push "maxW"
 GetVariable
@@ -6606,8 +6527,8 @@ GetMember
 Push register4
 Add2
 Greater
-loc87e1:Not
-If loc8817
+loc86ba:Not
+If loc86f0
 Push "resizeTarget"
 GetVariable
 Push "_width"
@@ -6621,8 +6542,8 @@ GetMember
 Push register4
 Add2
 SetMember
-Jump loc8898
-loc8817:Push "minW"
+Jump loc8771
+loc86f0:Push "minW"
 GetVariable
 Push "resizeTarget"
 GetVariable
@@ -6633,7 +6554,7 @@ Add2
 Less2
 Not
 Not
-If loc885a
+If loc8733
 Push "minW"
 GetVariable
 StoreRegister 3
@@ -6641,8 +6562,8 @@ Pop
 Push register1 "_x" register3 80
 Subtract
 SetMember
-Jump loc8898
-loc885a:Push "maxW"
+Jump loc8771
+loc8733:Push "maxW"
 GetVariable
 Push "resizeTarget"
 GetVariable
@@ -6653,7 +6574,7 @@ Add2
 Greater
 Not
 Not
-If loc8898
+If loc8771
 Push "maxW"
 GetVariable
 StoreRegister 3
@@ -6661,7 +6582,7 @@ Pop
 Push register1 "_x" register3 80
 Subtract
 SetMember
-loc8898:Push "minH"
+loc8771:Push "minH"
 GetVariable
 Push "resizeTarget"
 GetVariable
@@ -6672,7 +6593,7 @@ Add2
 Less2
 PushDuplicate
 Not
-If loc88d6
+If loc87af
 Pop
 Push "maxH"
 GetVariable
@@ -6683,8 +6604,8 @@ GetMember
 Push register5
 Add2
 Greater
-loc88d6:Not
-If loc890c
+loc87af:Not
+If loc87e5
 Push "resizeTarget"
 GetVariable
 Push "_height"
@@ -6698,8 +6619,8 @@ GetMember
 Push register5
 Add2
 SetMember
-Jump loc898d
-loc890c:Push "minH"
+Jump loc8866
+loc87e5:Push "minH"
 GetVariable
 Push "resizeTarget"
 GetVariable
@@ -6710,7 +6631,7 @@ Add2
 Less2
 Not
 Not
-If loc894f
+If loc8828
 Push "minH"
 GetVariable
 StoreRegister 2
@@ -6719,8 +6640,8 @@ Push register1 "_y" register2 register1 "_height"
 GetMember
 Subtract
 SetMember
-Jump loc898d
-loc894f:Push "maxH"
+Jump loc8866
+loc8828:Push "maxH"
 GetVariable
 Push "resizeTarget"
 GetVariable
@@ -6731,7 +6652,7 @@ Add2
 Greater
 Not
 Not
-If loc898d
+If loc8866
 Push "maxH"
 GetVariable
 StoreRegister 2
@@ -6740,20 +6661,20 @@ Push register1 "_y" register2 register1 "_height"
 GetMember
 Subtract
 SetMember
-loc898d:Push "w"
+loc8866:Push "w"
 GetVariable
 Push undefined
 Equals2
 PushDuplicate
 Not
-If loc89ad
+If loc8886
 Pop
 Push "h"
 GetVariable
 Push undefined
 Equals2
-loc89ad:Not
-If loc8c40
+loc8886:Not
+If loc8ac0
 Push "resizeTarget"
 GetVariable
 Push "_parent"
@@ -6764,7 +6685,7 @@ Push "output_mc"
 GetMember
 Equals2
 Not
-If loc8b84
+If loc8a5d
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -6901,8 +6822,8 @@ Push "interactionMenu_mc"
 GetMember
 Push "_x" register3
 SetMember
-Jump loc8c1d
-loc8b84:Push "resizeTarget"
+Jump loc8a9d
+loc8a5d:Push "resizeTarget"
 GetVariable
 Push "_parent"
 GetMember
@@ -6922,34 +6843,7 @@ Push "_height" register2 "outputTxt_yGap"
 GetVariable
 Add2
 SetMember
-Push register2 "outputTxt_yGap"
-GetVariable
-Add2
-Push 1 "resizeTarget"
-GetVariable
-Push "_parent"
-GetMember
-Push "scrollBar"
-GetMember
-Push "resize"
-CallMethod
-Pop
-Push "resizeTarget"
-GetVariable
-Push "_parent"
-GetMember
-Push "scrollBar"
-GetMember
-Push "scroll" "resizeTarget"
-GetVariable
-Push "_parent"
-GetMember
-Push "scrollBar"
-GetMember
-Push "scrollMax"
-GetMember
-SetMember
-loc8c1d:Push "resizeTarget"
+loc8a9d:Push "resizeTarget"
 GetVariable
 Push "_width" register3
 SetMember
@@ -6957,8 +6851,8 @@ Push "resizeTarget"
 GetVariable
 Push "_height" register2
 SetMember
-Jump loc8efb
-loc8c40:Push "resizeTarget"
+Jump loc8d1d
+loc8ac0:Push "resizeTarget"
 GetVariable
 Push "_parent"
 GetMember
@@ -6968,7 +6862,7 @@ Push "output_mc"
 GetMember
 Equals2
 Not
-If loc8e31
+If loc8cb1
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -7116,8 +7010,8 @@ Push "interactionMenu_mc"
 GetMember
 Push "_x" register3
 SetMember
-Jump loc8ed9
-loc8e31:Push "resizeTarget"
+Jump loc8cfb
+loc8cb1:Push "resizeTarget"
 GetVariable
 Push "_parent"
 GetMember
@@ -7141,36 +7035,7 @@ Push "outputTxt_yGap"
 GetVariable
 Add2
 SetMember
-Push "h"
-GetVariable
-Push "outputTxt_yGap"
-GetVariable
-Add2
-Push 1 "resizeTarget"
-GetVariable
-Push "_parent"
-GetMember
-Push "scrollBar"
-GetMember
-Push "resize"
-CallMethod
-Pop
-Push "resizeTarget"
-GetVariable
-Push "_parent"
-GetMember
-Push "scrollBar"
-GetMember
-Push "scroll" "resizeTarget"
-GetVariable
-Push "_parent"
-GetMember
-Push "scrollBar"
-GetMember
-Push "scrollMax"
-GetMember
-SetMember
-loc8ed9:Push "resizeTarget"
+loc8cfb:Push "resizeTarget"
 GetVariable
 Push "_width" "w"
 GetVariable
@@ -7180,7 +7045,7 @@ GetVariable
 Push "_height" "h"
 GetVariable
 SetMember
-loc8efb:Push "dragPosObj"
+loc8d1d:Push "dragPosObj"
 GetVariable
 Push "x" "resizeTarget"
 GetVariable
@@ -7197,7 +7062,7 @@ SetMember
 }
 SetMember
 }
-loc8f2e:SetMember
+loc8d50:SetMember
 Push register6 "onRelease" register6 "onReleaseOutside"
 DefineFunction2 "" 0 2 false false true false true false false true false  {
 Push 0.0 "refreshTexts"
@@ -7213,19 +7078,19 @@ Push "output_mc"
 GetMember
 Equals2
 Not
-If loc8f8a
+If loc8dac
 Push 0.0 "startCount"
 CallFunction
 Pop
-Jump loc8fa3
-loc8f8a:Push "resizeTarget"
+Jump loc8dc5
+loc8dac:Push "resizeTarget"
 GetVariable
 Push "_parent"
 GetMember
 Push 1 "startCountSepaTab"
 CallFunction
 Pop
-loc8fa3:Push 1 1 register1 "gotoAndStop"
+loc8dc5:Push 1 1 register1 "gotoAndStop"
 CallMethod
 Pop
 Push register1 "dragging" "dragerDragging" false
@@ -7246,12 +7111,12 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loc9010
+If loc8e32
 Push 0.0 "setFocusAtInput"
 CallFunction
 Pop
 }
-loc9010:StoreRegister 0
+loc8e32:StoreRegister 0
 SetMember
 Push register0
 SetMember
@@ -7418,10 +7283,10 @@ GetMember
 Push "tabOptionMenu_mc"
 GetMember
 Enumerate2
-loc9261:StoreRegister 0
+loc9083:StoreRegister 0
 Push null
 Equals2
-If loc9379
+If loc919b
 Push "line" register0
 SetVariable
 Push "container_mc"
@@ -7441,7 +7306,7 @@ Push "movieclip"
 Equals2
 PushDuplicate
 Not
-If loc92d1
+If loc90f3
 Pop
 Push 4 0.0 2 register1 "_name"
 GetMember
@@ -7449,8 +7314,8 @@ Push "substr"
 CallMethod
 Push "line"
 Equals2
-loc92d1:Not
-If loc9374
+loc90f3:Not
+If loc9196
 Push false
 StoreRegister 3
 Pop
@@ -7461,21 +7326,21 @@ GetMember
 Push register2
 Equals2
 PushDuplicate
-If loc9303
+If loc9125
 Pop
 Push register2 undefined
 Equals2
-loc9303:Not
-If loc9313
+loc9125:Not
+If loc9135
 Push true
 StoreRegister 3
 Pop
-loc9313:Push register3
+loc9135:Push register3
 Not
-If loc9374
+If loc9196
 Push register4
 Not
-If loc9351
+If loc9173
 Push register1 "txt"
 GetMember
 Push "_alpha" 100
@@ -7484,8 +7349,8 @@ Push register1 "hit"
 GetMember
 Push "_visible" true
 SetMember
-Jump loc9374
-loc9351:Push register1 "txt"
+Jump loc9196
+loc9173:Push register1 "txt"
 GetMember
 Push "_alpha" 30
 SetMember
@@ -7493,16 +7358,16 @@ Push register1 "hit"
 GetMember
 Push "_visible" false
 SetMember
-loc9374:Jump loc9261
-loc9379:Push "container_mc"
+loc9196:Jump loc9083
+loc919b:Push "container_mc"
 GetVariable
 Push "optionMenu_mc"
 GetMember
 Enumerate2
-loc9386:StoreRegister 0
+loc91a8:StoreRegister 0
 Push null
 Equals2
-If loc94ca
+If loc92ec
 Push "line" register0
 SetVariable
 Push "container_mc"
@@ -7520,7 +7385,7 @@ Push "movieclip"
 Equals2
 PushDuplicate
 Not
-If loc93ef
+If loc9211
 Pop
 Push 4 0.0 2 register1 "_name"
 GetMember
@@ -7528,8 +7393,8 @@ Push "substr"
 CallMethod
 Push "line"
 Equals2
-loc93ef:Not
-If loc94c5
+loc9211:Not
+If loc92e7
 Push false
 StoreRegister 3
 Pop
@@ -7540,16 +7405,16 @@ GetMember
 Push register2
 Equals2
 PushDuplicate
-If loc9421
+If loc9243
 Pop
 Push register2 undefined
 Equals2
-loc9421:Not
-If loc9431
+loc9243:Not
+If loc9253
 Push true
 StoreRegister 3
 Pop
-loc9431:Push register1 "txt"
+loc9253:Push register1 "txt"
 GetMember
 Push "text"
 GetMember
@@ -7566,10 +7431,10 @@ CallMethod
 Pop
 Push register3
 Not
-If loc94c5
+If loc92e7
 Push register4
 Not
-If loc94a2
+If loc92c4
 Push register1 "txt"
 GetMember
 Push "_alpha" 100
@@ -7578,8 +7443,8 @@ Push register1 "hit"
 GetMember
 Push "_visible" true
 SetMember
-Jump loc94c5
-loc94a2:Push register1 "txt"
+Jump loc92e7
+loc92c4:Push register1 "txt"
 GetMember
 Push "_alpha" 30
 SetMember
@@ -7587,9 +7452,9 @@ Push register1 "hit"
 GetMember
 Push "_visible" false
 SetMember
-loc94c5:Jump loc9386
+loc92e7:Jump loc91a8
 }
-loc94ca:DefineFunction "ToGame_Chat_RequestAddTab" 0  {
+loc92ec:DefineFunction "ToGame_Chat_RequestAddTab" 0  {
 GetUrl "FSCommand:ToGame_Chat_RequestAddTab" ""
 }
 DefineFunction2 "ToGame_Chat_RemoveTab" 1 2 false false true false true false true false false 1 "index"  {
@@ -7668,18 +7533,18 @@ Push register2 -1
 Equals2
 Not
 Not
-If loc99fe
+If loc9820
 Push ""
 StoreRegister 8
 Pop
 Push 0.0
 StoreRegister 4
 Pop
-loc98e4:Push register2 -1
+loc9706:Push register2 -1
 Equals2
 Not
 Not
-If loc99d4
+If loc97f6
 Push register8 register2 register4 2 register3 "substring"
 CallMethod
 Add2
@@ -7722,8 +7587,8 @@ Push register4 register9 2 register3 "indexOf"
 CallMethod
 StoreRegister 2
 Pop
-Jump loc98e4
-loc99d4:Push register8 register4 4
+Jump loc9706
+loc97f6:Push register8 register4 4
 Add2
 Push 1 register3 "substring"
 CallMethod
@@ -7733,7 +7598,7 @@ Pop
 Push register8
 StoreRegister 3
 Pop
-loc99fe:Push "FSCommand:ToGame_Chat_SendWriting" register10 "\t"
+loc9820:Push "FSCommand:ToGame_Chat_SendWriting" register10 "\t"
 Add2
 Push register3
 Add2
@@ -7758,14 +7623,14 @@ DefineFunction2 "ToGame_Chat_ClickLink" 3 4 false false true false true false tr
 Push register2 undefined
 Equals2
 Not
-If loc9aa4
+If loc98c6
 Push "FSCommand:ToGame_Chat_ClickLink" register3 "\t"
 Add2
 Push register1
 Add2
 GetURL2 false false 0
-Jump loc9ac5
-loc9aa4:Push "FSCommand:ToGame_Chat_ClickLink" register3 "\t"
+Jump loc98e7
+loc98c6:Push "FSCommand:ToGame_Chat_ClickLink" register3 "\t"
 Add2
 Push register1
 Add2
@@ -7775,7 +7640,7 @@ Push register2
 Add2
 GetURL2 false false 0
 }
-loc9ac5:DefineFunction2 "ToGame_Chat_ClickName" 4 5 false false true false true false true false false 1 "name" 3 "chatType" 4 "strTalk" 2 "combinationKey"  {
+loc98e7:DefineFunction2 "ToGame_Chat_ClickName" 4 5 false false true false true false true false false 1 "name" 3 "chatType" 4 "strTalk" 2 "combinationKey"  {
 Push "ToGame_Chat_ClickName - name : " register1
 Add2
 Push 1 "lib"
@@ -7788,12 +7653,12 @@ Pop
 Push register2 undefined
 Equals2
 PushDuplicate
-If loc9b45
+If loc9967
 Pop
 Push register2 ""
 Equals2
-loc9b45:Not
-If loc9b71
+loc9967:Not
+If loc9993
 Push "FSCommand:ToGame_Chat_ClickName" register1 "\t"
 Add2
 Push register3
@@ -7803,8 +7668,8 @@ Add2
 Push register4
 Add2
 GetURL2 false false 0
-Jump loc9b9e
-loc9b71:Push "FSCommand:ToGame_Chat_ClickName" register1 "\t"
+Jump loc99c0
+loc9993:Push "FSCommand:ToGame_Chat_ClickName" register1 "\t"
 Add2
 Push register3
 Add2
@@ -7818,7 +7683,7 @@ Push register2
 Add2
 GetURL2 false false 0
 }
-loc9b9e:DefineFunction2 "ToGame_Chat_RequestSlashCommand" 1 3 false false true false true false true false false 2 "str"  {
+loc99c0:DefineFunction2 "ToGame_Chat_RequestSlashCommand" 1 3 false false true false true false true false false 2 "str"  {
 Push " " 1 register2 "split"
 CallMethod
 StoreRegister 1
@@ -7829,7 +7694,7 @@ Push 3
 Less2
 Not
 Not
-If loc9c4d
+If loc9a6f
 Push "FSCommand:ToGame_Chat_RequestSlashCommand" register1 0.0
 GetMember
 Push "\t"
@@ -7847,8 +7712,8 @@ Push register1 1
 GetMember
 Add2
 Trace
-Jump loc9c77
-loc9c4d:Push "FSCommand:ToGame_Chat_RequestSlashCommand" register1 0.0
+Jump loc9a99
+loc9a6f:Push "FSCommand:ToGame_Chat_RequestSlashCommand" register1 0.0
 GetMember
 GetURL2 false false 0
 Push "ToGame_Chat_RequestSlashCommand: " register1 0.0
@@ -7856,7 +7721,7 @@ GetMember
 Add2
 Trace
 }
-loc9c77:DefineFunction2 "ToGame_Chat_SaveLock" 1 2 false false true false true false true false false 1 "states"  {
+loc9a99:DefineFunction2 "ToGame_Chat_SaveLock" 1 2 false false true false true false true false false 1 "states"  {
 Push "FSCommand:ToGame_Chat_SaveLock" register1
 GetURL2 false false 0
 Push "ToGame_Chat_SaveLock: " register1
@@ -7916,14 +7781,14 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loc9e31
+If loc9c53
 Push 1 1 "startTabOptionOut"
 CallFunction
 Pop
-loc9e31:Push register5 0.0
+loc9c53:Push register5 0.0
 Equals2
 Not
-If loc9faa
+If loc9dcc
 Push 0.0 "lib"
 GetVariable
 Push "info"
@@ -8021,16 +7886,16 @@ Push 1
 Equals2
 Not
 Not
-If loc9fa5
+If loc9dc7
 Push register3 register1 register4 register2 1 0.0 "container_mc"
 GetVariable
 StartDrag
-loc9fa5:Jump loc9fb9
-loc9faa:Push register5 1 "checkCanSepa"
+loc9dc7:Jump loc9ddb
+loc9dcc:Push register5 1 "checkCanSepa"
 CallFunction
 Pop
 }
-loc9fb9:DefineFunction2 "checkCanSepa" 1 7 false true true false true false true false false 0 "num"  {
+loc9ddb:DefineFunction2 "checkCanSepa" 1 7 false true true false true false true false false 0 "num"  {
 Push "checkSepaNum" "num"
 GetVariable
 SetVariable
@@ -8085,14 +7950,14 @@ GetVariable
 Less2
 Not
 PushDuplicate
-If loca0b9
+If loc9edb
 Pop
 Push register2 "sepaLimit"
 GetVariable
 Less2
 Not
-loca0b9:Not
-If loca1b0
+loc9edb:Not
+If loc9fd2
 Push "chatObjects"
 GetVariable
 Push "firstIndex"
@@ -8104,7 +7969,7 @@ Push 1
 Equals2
 Not
 Not
-If loca1b0
+If loc9fd2
 Push "tab"
 GetVariable
 Push "pressed" false
@@ -8120,7 +7985,7 @@ GetMember
 Equals2
 Not
 Not
-If loca15c
+If loc9f7e
 Push "tab"
 GetVariable
 Push "txt_array"
@@ -8144,7 +8009,7 @@ GetMember
 Push 2
 Subtract
 SetMember
-loca15c:Push "num"
+loc9f7e:Push "num"
 GetVariable
 Push 1 "deleteCheckCanSepa"
 CallFunction
@@ -8167,7 +8032,7 @@ Push 2 "sepaStart"
 CallFunction
 Pop
 }
-loca1b0:SetMember
+loc9fd2:SetMember
 }
 DefineFunction2 "deleteCheckCanSepa" 1 2 false false true false true false true false false 1 "num"  {
 Push "tab"
@@ -8291,10 +8156,10 @@ Pop
 Push "UI"
 GetVariable
 Enumerate2
-loca3dc:StoreRegister 0
+loca1fe:StoreRegister 0
 Push null
 Equals2
-If loca49e
+If loca2c0
 Push "mc" register0
 SetVariable
 Push "UI"
@@ -8309,7 +8174,7 @@ TypeOf
 Push "movieclip"
 Equals2
 Not
-If loca499
+If loca2bb
 Push 6 0.0 2 register1 "_name"
 GetMember
 Push "substr"
@@ -8317,12 +8182,12 @@ CallMethod
 Push "viewer"
 Equals2
 Not
-If loca499
+If loca2bb
 Push register2 undefined
 Equals2
 Not
 Not
-If loca48e
+If loca2b0
 Push 6 1 register1 "_name"
 GetMember
 Push "substr"
@@ -8331,27 +8196,27 @@ ToNumber
 Push register2
 Equals2
 Not
-If loca489
-loca478:Push null
+If loca2ab
+loca29a:Push null
 Equals2
 Not
-If loca478
+If loca29a
 Push register1
 Return
-loca489:Jump loca499
-loca48e:Push register3
+loca2ab:Jump loca2bb
+loca2b0:Push register3
 Increment
 StoreRegister 3
 Pop
-loca499:Jump loca3dc
-loca49e:Push register2 undefined
+loca2bb:Jump loca1fe
+loca2c0:Push register2 undefined
 Equals2
 Not
 Not
-If loca4b1
+If loca2d3
 Push null
 Return
-loca4b1:Push register3
+loca2d3:Push register3
 Return
 }
 DefineFunction2 "release" 2 3 false false true false true false true false false 2 "num" 0 "notSendToGame"  {
@@ -8369,17 +8234,17 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loca5c0
+If loca3e2
 Push 0.0
 StoreRegister 1
 Pop
-loca520:Push register1 "tabArray"
+loca342:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loca5c0
+If loca3e2
 Push "tab"
 GetVariable
 Push "btn_array"
@@ -8391,7 +8256,7 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loca5b0
+If loca3d2
 Push "tab"
 GetVariable
 Push "btn_array"
@@ -8419,15 +8284,15 @@ Push "glow"
 GetMember
 Push "_visible" false
 SetMember
-loca5b0:Push register1
+loca3d2:Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loca520
-loca5c0:Push register2 0.0
+Jump loca342
+loca3e2:Push register2 0.0
 Equals2
 Not
-If loca656
+If loca478
 Push "container_mc"
 GetVariable
 Push "xRatio" "container_mc"
@@ -8462,8 +8327,8 @@ EndDrag
 Push 0.0 "saveTabInfo"
 CallFunction
 Pop
-Jump loca67b
-loca656:Push "checkSepaNum"
+Jump loca49d
+loca478:Push "checkSepaNum"
 GetVariable
 Push 1 "deleteCheckCanSepa"
 CallFunction
@@ -8471,7 +8336,7 @@ Pop
 Push 0.0 "sepaEnd"
 CallFunction
 Pop
-loca67b:Push 3 undefined 2 "tab"
+loca49d:Push 3 undefined 2 "tab"
 GetVariable
 Push "alignText"
 CallMethod
@@ -8481,7 +8346,7 @@ DefineFunction2 "releaseOutside" 1 2 false false true false true false true fals
 Push register1 0.0
 Equals2
 Not
-If loca748
+If loca56a
 Push "container_mc"
 GetVariable
 Push "xRatio" "container_mc"
@@ -8516,8 +8381,8 @@ EndDrag
 Push 0.0 "saveTabInfo"
 CallFunction
 Pop
-Jump loca76d
-loca748:Push "checkSepaNum"
+Jump loca58f
+loca56a:Push "checkSepaNum"
 GetVariable
 Push 1 "deleteCheckCanSepa"
 CallFunction
@@ -8526,7 +8391,7 @@ Push 0.0 "sepaEnd"
 CallFunction
 Pop
 }
-loca76d:DefineFunction2 "set2LineText" 2 3 false false true false true false true false false 1 "targetTextField" 2 "str"  {
+loca58f:DefineFunction2 "set2LineText" 2 3 false false true false true false true false false 1 "targetTextField" 2 "str"  {
 Push register1 "fontScaleFactor" 1
 SetMember
 Push register1 "text" register2
@@ -8536,29 +8401,29 @@ GetMember
 Push 1
 Equals2
 Not
-If loca7db
+If loca5fd
 Push register1 "fontScaleFactor" 1
 SetMember
-Jump loca833
-loca7db:Push register1 "numLines"
+Jump loca655
+loca5fd:Push register1 "numLines"
 GetMember
 Push 2
 Equals2
 Not
-If loca809
+If loca62b
 Push register1 "fontScaleFactor" 0.8
 SetMember
-Jump loca833
-loca809:Push register1 "numLines"
+Jump loca655
+loca62b:Push register1 "numLines"
 GetMember
 Push 3
 Less2
 Not
 Not
-If loca833
+If loca655
 Push register1 "fontScaleFactor" 0.65
 SetMember
-loca833:Push register1 "text" register2
+loca655:Push register1 "text" register2
 SetMember
 Push register1 "_height" register1 "textHeight"
 GetMember
@@ -8713,7 +8578,7 @@ Push "_visible" register1
 SetMember
 Push register1
 Not
-If locaadc
+If loca8fe
 Push 2 1 "container_mc"
 GetVariable
 Push "input_mc"
@@ -8723,8 +8588,8 @@ GetMember
 Push "gotoAndPlay"
 CallMethod
 Pop
-Jump locab00
-locaadc:Push 1 1 "container_mc"
+Jump loca922
+loca8fe:Push 1 1 "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -8734,7 +8599,7 @@ Push "gotoAndStop"
 CallMethod
 Pop
 }
-locab00:DefineFunction "isFocusInput" 0  {
+loca922:DefineFunction "isFocusInput" 0  {
 Push 0.0 "Selection"
 GetVariable
 Push "getFocus"
@@ -9002,309 +8867,77 @@ Push "motionLock" false
 SetVariable
 }
 DefineFunction2 "reflowShoutMCAndBg" 0 2 false false true false true false true false false  {
-Push 1
-StoreRegister 1
-Pop
-Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "motionTxt"
-GetMember
-Push "textHeight"
-GetMember
-Push 50
-Greater
-Not
-If locafe5
-Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "noticeMask"
-GetMember
-Push "_height" 0
-SetMember
-Push 3
-StoreRegister 1
-Pop
-Jump locb05f
-locafe5:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "motionTxt"
-GetMember
-Push "textHeight"
-GetMember
-Push 32
-Greater
-Not
-If locb040
-Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "noticeMask"
-GetMember
-Push "_height" 52
-SetMember
-Push 2
-StoreRegister 1
-Pop
-Jump locb05f
-locb040:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "noticeMask"
-GetMember
-Push "_height" 31
-SetMember
-locb05f:Push "container_mc"
-GetVariable
-Push "notice_mc"
-GetMember
-Push "_visible"
-GetMember
-Not
-If locb110
-Push register1
-StoreRegister 0
-Push 1
-StrictEquals
-If locb0b4
-Push register0 2
-StrictEquals
-If locb0d1
-Push register0 3
-StrictEquals
-If locb0ee
-Jump locb10b
-locb0b4:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" -474
-SetMember
-Jump locb10b
-locb0d1:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" -494
-SetMember
-Jump locb10b
-locb0ee:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" -514
-SetMember
-Jump locb10b
-locb10b:Jump locb1a3
-locb110:Push register1
-StoreRegister 0
-Push 1
-StrictEquals
-If locb14c
-Push register0 2
-StrictEquals
-If locb169
-Push register0 3
-StrictEquals
-If locb186
-Jump locb1a3
-locb14c:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" -440
-SetMember
-Jump locb1a3
-locb169:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" -474
-SetMember
-Jump locb1a3
-locb186:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" -494
-SetMember
-Jump locb1a3
-locb1a3:Push "container_mc"
-GetVariable
-Push "notice_mc"
-GetMember
-Push "_visible"
-GetMember
-PushDuplicate
-Not
-If locb1d1
-Pop
-Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_visible"
-GetMember
-locb1d1:Not
-If locb1eb
-Push register1 1 "resizeNoticeBackground"
-CallFunction
-Pop
-Jump locb24a
-locb1eb:Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_visible"
-GetMember
-PushDuplicate
-Not
-If locb211
-Pop
-Push register1 1
-Greater
-locb211:Not
-If locb234
-Push register1 1
-Subtract
-Push 1 "resizeNoticeBackground"
-CallFunction
-Pop
-Jump locb24a
-locb234:Push 0.0 1 "resizeNoticeBackground"
-CallFunction
-Pop
-locb24a:Push "container_mc"
-GetVariable
-Push "notice_mc"
-GetMember
-Push "_y" -440
-SetMember
-Push "container_mc"
-GetVariable
-Push "cantChat_mc"
-GetMember
-Push "_visible"
-GetMember
-Not
-If locb2fe
-Push "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y" "container_mc"
-GetVariable
-Push "shout_mc"
-GetMember
-Push "_y"
-GetMember
-Push 50
-Subtract
-SetMember
-Push "container_mc"
-GetVariable
-Push "notice_mc"
-GetMember
-Push "_y" "container_mc"
-GetVariable
-Push "notice_mc"
-GetMember
-Push "_y"
-GetMember
-Push 50
-Subtract
-SetMember
-Push "container_mc"
-GetVariable
-Push "noticeBg"
-GetMember
-Push "_y" "container_mc"
-GetVariable
-Push "noticeBg"
-GetMember
-Push "_y"
-GetMember
-Push 50
-Subtract
-SetMember
 }
-locb2fe:DefineFunction2 "resizeNoticeBackground" 1 2 false false true false true false true false false 1 "type"  {
+DefineFunction2 "resizeNoticeBackground" 1 2 false false true false true false true false false 1 "type"  {
 Push register1
 StoreRegister 0
 Push 0.0
 StrictEquals
-If locb375
+If locae16
 Push register0 1
 StrictEquals
-If locb3aa
+If locae4b
 Push register0 2
 StrictEquals
-If locb3e7
+If locae80
 Push register0 3
 StrictEquals
-If locb41c
-Jump locb459
-locb375:Push "container_mc"
+If locaeb5
+Jump locaeea
+locae16:Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_y" -440
+Push "_y" 0
 SetMember
 Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_height" 36
+Push "_height" 0
 SetMember
-Jump locb459
-locb3aa:Push "container_mc"
+Jump locaeea
+locae4b:Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_y" -479.5
+Push "_y" 0
 SetMember
 Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_height" 75.5
+Push "_height" 0
 SetMember
-Jump locb459
-locb3e7:Push "container_mc"
+Jump locaeea
+locae80:Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_y" -499
+Push "_y" 0
 SetMember
 Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_height" 95
+Push "_height" 0
 SetMember
-Jump locb459
-locb41c:Push "container_mc"
+Jump locaeea
+locaeb5:Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_y" -518.5
+Push "_y" 0
 SetMember
 Push "container_mc"
 GetVariable
 Push "noticeBg"
 GetMember
-Push "_height" 109.5
+Push "_height" 0
 SetMember
-Jump locb459
+Jump locaeea
 }
-locb459:Push "UI" "this"
+locaeea:Push "UI" "this"
 GetVariable
 DefineLocal
 Push "UI"
@@ -9367,7 +9000,7 @@ Push "verticalAlign" "center"
 SetMember
 Push "baseChatWidth" 730
 DefineLocal
-Push "baseChatHeight" 317
+Push "baseChatHeight" 100
 DefineLocal
 Push "baseChatMinWidth" 0
 DefineLocal
@@ -9377,11 +9010,11 @@ Push "sepaChatMinWidth" 0
 DefineLocal
 Push "sepaChatMinHeight" 0
 DefineLocal
-Push "outputTxt_xGap" -90
+Push "outputTxt_xGap" 0
 DefineLocal
-Push "outputTxt_yGap" -20
+Push "outputTxt_yGap" 0
 DefineLocal
-Push "inputTxt_xGap" -20
+Push "inputTxt_xGap" 0
 DefineLocal
 Push "inputTxt_x" 50
 DefineLocal
@@ -9611,11 +9244,11 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-locb994:Push register2 register6 "length"
+locb425:Push register2 register6 "length"
 GetMember
 Less2
 Not
-If locbacf
+If locb560
 Push "\t" register6 register2
 GetMember
 Push 2 "lib"
@@ -9682,7 +9315,7 @@ SetMember
 Push register5 1
 Equals2
 Not
-If locbabf
+If locb550
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -9696,12 +9329,12 @@ GetMember
 Push "color"
 GetMember
 SetMember
-locbabf:Push register2
+locb550:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump locb994
-locbacf:Push 0.0 "paintChannelList"
+Jump locb425
+locb560:Push 0.0 "paintChannelList"
 CallFunction
 Pop
 Push 0.0 "refreshTexts"
@@ -9927,18 +9560,18 @@ Push undefined
 Equals2
 Not
 Not
-If locbe10
+If locb8a1
 Push "maxChatLeng" "inputChat_0"
 GetVariable
 ToNumber
 SetVariable
-locbe10:Push "inputChat_1"
+locb8a1:Push "inputChat_1"
 GetVariable
 Push undefined
 Equals2
 Not
 Not
-If locbe40
+If locb8d1
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -9949,7 +9582,7 @@ Push "_y" "inputChat_1"
 GetVariable
 ToNumber
 SetMember
-locbe40:Push "mainOutput"
+locb8d1:Push "mainOutput"
 GetVariable
 Push "maxLine" "MAXLINE"
 GetVariable
@@ -10025,11 +9658,11 @@ DefineFunction2 "" 0 3 false false true false true false false true false  {
 Push "notInputArea"
 GetVariable
 Not
-If locbfeb
+If locba7c
 Push "linkDelete"
 GetVariable
 Not
-If locbf99
+If locba2a
 Push "saveText" register1 "htmlText"
 GetMember
 SetVariable
@@ -10037,8 +9670,8 @@ Push "notInputArea" false
 SetVariable
 Push "linkDelete" false
 SetVariable
-Jump locbfe6
-locbf99:Push register1 "htmlText" "saveText"
+Jump locba77
+locba2a:Push register1 "htmlText" "saveText"
 GetVariable
 SetMember
 Push "container_mc"
@@ -10062,8 +9695,8 @@ GetVariable
 Push "setSelection"
 CallMethod
 Pop
-locbfe6:Jump locc0d1
-locbfeb:Push "saveText" register1 "htmlText"
+locba77:Jump locbb62
+locba7c:Push "saveText" register1 "htmlText"
 GetMember
 SetVariable
 Push register1 "text"
@@ -10074,15 +9707,15 @@ Push "whisperReadyMode"
 GetVariable
 PushDuplicate
 Not
-If locc02a
+If locbabb
 Pop
 Push " " 1 register2 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
-locc02a:Not
-If locc06b
+locbabb:Not
+If locbafc
 Push " " 1 register2 "indexOf"
 CallMethod
 Push 0.0 2 register2 "substr"
@@ -10092,13 +9725,13 @@ CallFunction
 Pop
 Push "whisperReadyMode" false
 SetVariable
-locc06b:Push 1 0.0 2 register2 "substr"
+locbafc:Push 1 0.0 2 register2 "substr"
 CallMethod
 Push "/"
 Equals2
 PushDuplicate
 Not
-If locc0bd
+If locbb4e
 Pop
 Push 1 register2 "length"
 GetMember
@@ -10108,12 +9741,12 @@ Push 2 register2 "substr"
 CallMethod
 Push " "
 Equals2
-locc0bd:Not
-If locc0d1
+locbb4e:Not
+If locbb62
 Push register2 1 "ToGame_Chat_RequestSlashCommand"
 CallFunction
 Pop
-locc0d1:Push register1 "text"
+locbb62:Push register1 "text"
 GetMember
 Push 1 "lib"
 GetVariable
@@ -10126,7 +9759,7 @@ CallMethod
 Push ""
 Equals2
 Not
-If locc136
+If locbbc7
 Push register1 "text" ""
 SetMember
 Push register1 "htmlText" ""
@@ -10142,7 +9775,7 @@ Push "color"
 GetMember
 SetMember
 }
-locc136:SetMember
+locbbc7:SetMember
 Push "myListener"
 GetVariable
 Push "OnGameEventShowWindow"
@@ -10152,7 +9785,7 @@ CallMethod
 Push "chat2"
 Equals2
 Not
-If locc1be
+If locbc4f
 Push "bWindowOpen" register2
 SetVariable
 Push "UI"
@@ -10161,7 +9794,7 @@ Push "_visible" register2
 SetMember
 Push register2
 Not
-If locc1be
+If locbc4f
 Push register1 "gbUIMode"
 GetMember
 Push 1 "myListener"
@@ -10170,7 +9803,7 @@ Push "OnGameEventChangeUIMode"
 CallMethod
 Pop
 }
-locc1be:SetMember
+locbc4f:SetMember
 Push "myListener"
 GetVariable
 Push "OnGameEventChangeUIMode"
@@ -10182,7 +9815,7 @@ Push register1 "gbUIMode"
 GetMember
 Not
 Not
-If locc42e
+If locbebf
 Push "tabArray"
 GetVariable
 Push "tab"
@@ -10195,13 +9828,13 @@ Pop
 Push "inputOpen"
 GetVariable
 Not
-If locc232
+If locbcc3
 Push false 1 "myListener"
 GetVariable
 Push "OnGame_Chat_ChangeChatMode"
 CallMethod
 Pop
-locc232:Push "container_mc"
+locbcc3:Push "container_mc"
 GetVariable
 Push "output_mc"
 GetMember
@@ -10243,13 +9876,13 @@ SetMember
 Push 0.0
 StoreRegister 3
 Pop
-locc2c4:Push register3 "tabArray"
+locbd55:Push register3 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If locc32a
+If locbdbb
 Push "tabArray"
 GetVariable
 Push register3
@@ -10275,17 +9908,17 @@ Push register3
 Increment
 StoreRegister 3
 Pop
-Jump locc2c4
-locc32a:Push 1 1 "interactionMenuClosing"
+Jump locbd55
+locbdbb:Push 1 1 "interactionMenuClosing"
 CallFunction
 Pop
 Push "UI"
 GetVariable
 Enumerate2
-locc344:StoreRegister 0
+locbdd5:StoreRegister 0
 Push null
 Equals2
-If locc429
+If locbeba
 Push "mc" register0
 SetVariable
 Push "UI"
@@ -10301,14 +9934,14 @@ Push "movieclip"
 Equals2
 PushDuplicate
 Not
-If locc38b
+If locbe1c
 Pop
 Push register2 "container_mc"
 GetVariable
 Equals2
 Not
-locc38b:Not
-If locc424
+locbe1c:Not
+If locbeb5
 Push register2 "expander"
 GetMember
 Push "_visible" false
@@ -10348,9 +9981,9 @@ Push register2 "option_btn"
 GetMember
 Push "_visible" false
 SetMember
-locc424:Jump locc344
-locc429:Jump locc61e
-locc42e:Push "tabArray"
+locbeb5:Jump locbdd5
+locbeba:Jump locc0af
+locbebf:Push "tabArray"
 GetVariable
 Push "tab"
 GetVariable
@@ -10365,7 +9998,7 @@ Push "output_mc"
 GetMember
 Push "scroller"
 GetMember
-Push "_visible" true
+Push "_visible" false
 SetMember
 Push "container_mc"
 GetVariable
@@ -10399,13 +10032,13 @@ SetMember
 Push 0.0
 StoreRegister 3
 Pop
-locc4cf:Push register3 "tabArray"
+locbf60:Push register3 "tabArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If locc52c
+If locbfbd
 Push "tabArray"
 GetVariable
 Push register3
@@ -10429,14 +10062,14 @@ Push register3
 Increment
 StoreRegister 3
 Pop
-Jump locc4cf
-locc52c:Push "UI"
+Jump locbf60
+locbfbd:Push "UI"
 GetVariable
 Enumerate2
-locc534:StoreRegister 0
+locbfc5:StoreRegister 0
 Push null
 Equals2
-If locc61e
+If locc0af
 Push "mc" register0
 SetVariable
 Push "UI"
@@ -10452,14 +10085,14 @@ Push "movieclip"
 Equals2
 PushDuplicate
 Not
-If locc57b
+If locc00c
 Pop
 Push register2 "container_mc"
 GetVariable
 Equals2
 Not
-locc57b:Not
-If locc619
+locc00c:Not
+If locc0aa
 Push register2 "expander"
 GetMember
 Push "_visible" true
@@ -10486,7 +10119,7 @@ GetMember
 Push "alpha"
 GetMember
 SetMember
-Push true 1 register2 "scrollBar"
+Push false 1 register2 "scrollBar"
 GetMember
 Push "setVisible"
 CallMethod
@@ -10501,9 +10134,9 @@ Push register2 "option_btn"
 GetMember
 Push "_visible" true
 SetMember
-locc619:Jump locc534
+locc0aa:Jump locbfc5
 }
-locc61e:SetMember
+locc0af:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_ChangeChatMode"
@@ -10514,7 +10147,7 @@ StoreRegister 1
 Pop
 Push register1
 Not
-If locc6b1
+If locc142
 Push "container_mc"
 GetVariable
 Push "_visible" true
@@ -10534,13 +10167,13 @@ Pop
 Push 0.0 "resetCount"
 CallFunction
 Pop
-Jump locc70d
-locc6b1:Push "inputOpen" false
+Jump locc19e
+locc142:Push "inputOpen" false
 SetVariable
 Push 0.0 "isFocusInput"
 CallFunction
 Not
-If locc6e9
+If locc17a
 Push "dummy2"
 GetVariable
 Push 1 "Selection"
@@ -10548,7 +10181,7 @@ GetVariable
 Push "setFocus"
 CallMethod
 Pop
-locc6e9:Push "container_mc"
+locc17a:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -10558,7 +10191,7 @@ Push 0.0 "startCount"
 CallFunction
 Pop
 }
-locc70d:SetMember
+locc19e:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_SetPunishment"
@@ -10658,7 +10291,7 @@ Push -1
 Equals2
 Not
 Not
-If locc8ef
+If locc380
 Push false "&&&;" "\'" register1 4 "lib"
 GetVariable
 Push "util"
@@ -10669,7 +10302,7 @@ Push "replace"
 CallMethod
 StoreRegister 1
 Pop
-locc8ef:Push "<font color=\'" register6
+locc380:Push "<font color=\'" register6
 Add2
 Push "\'>"
 Add2
@@ -10834,10 +10467,10 @@ Pop
 Push 0.0
 StoreRegister 1
 Pop
-loccbab:Push register1 register2
+locc63c:Push register1 register2
 Less2
 Not
-If loccc63
+If locc6f4
 Push "chatObjects"
 GetVariable
 Push register1
@@ -10888,16 +10521,16 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loccbab
-loccc63:Push "baseTabChanged"
+Jump locc63c
+locc6f4:Push "baseTabChanged"
 GetVariable
 Not
 Not
-If loccc82
+If locc713
 Push 0.0 "initMainChatPos"
 CallFunction
 Pop
-loccc82:Push "container_mc"
+locc713:Push "container_mc"
 GetVariable
 Push "_y"
 GetMember
@@ -10911,7 +10544,7 @@ Push "yRatioToPixel"
 CallMethod
 Less2
 Not
-If loccce6
+If locc777
 Push "container_mc"
 GetVariable
 Push "_y" 37 1 "lib"
@@ -10924,7 +10557,7 @@ Push "yRatioToPixel"
 CallMethod
 SetMember
 }
-loccce6:SetMember
+locc777:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_Refresh"
@@ -11007,7 +10640,7 @@ Push -1
 Equals2
 Not
 Not
-If locce68
+If locc8f9
 Push false "&&&;" "\'" register6 4 "lib"
 GetVariable
 Push "util"
@@ -11018,55 +10651,55 @@ Push "replace"
 CallMethod
 StoreRegister 6
 Pop
-locce68:Push register7 1
+locc8f9:Push register7 1
 Equals2
 Not
-If locce92
+If locc923
 Push "[<img src=\'\' width=\'24\' height=\'24\' vspace=\'-7\'>" register4
 Add2
 Push "]"
 Add2
 StoreRegister 5
 Pop
-Jump loccf21
-locce92:Push register7 2
+Jump locc9b2
+locc923:Push register7 2
 Equals2
 Not
-If loccebb
+If locc94c
 Push "[<img src=\'Icon_GM\' width=\'28\' height=\'28\' vspace=\'-5\'>" register4
 Add2
 Push "]"
 Add2
 StoreRegister 5
 Pop
-Jump loccf21
-loccebb:Push register7 3
+Jump locc9b2
+locc94c:Push register7 3
 Equals2
 Not
-If loccee4
+If locc975
 Push "[<img src=\'Icon_OldUser\' width=\'28\' height=\'28\' vspace=\'-5\'>" register4
 Add2
 Push "]"
 Add2
 StoreRegister 5
 Pop
-Jump loccf21
-loccee4:Push register7 4
+Jump locc9b2
+locc975:Push register7 4
 Equals2
 Not
-If loccf05
+If locc996
 Push "<img src=\'Icon_Shout\' width=\'21\' height=\'21\' vspace=\'-4\'>"
 StoreRegister 2
 Pop
-Jump loccf21
-loccf05:Push register7 5
+Jump locc9b2
+locc996:Push register7 5
 Equals2
 Not
-If loccf21
+If locc9b2
 Push "<img src=\'Icon_Whisper\' width=\'21\' height=\'21\' vspace=\'-4\'>"
 StoreRegister 2
 Pop
-loccf21:Push "chatColor_array"
+locc9b2:Push "chatColor_array"
 GetVariable
 Push register1
 GetMember
@@ -11075,14 +10708,14 @@ GetMember
 Push 1
 Equals2
 Not
-If locd148
+If loccbd9
 Push ""
 StoreRegister 3
 Pop
 Push register10 0.0
 Equals2
 Not
-If locd047
+If loccad8
 Push "$031085" 1 "lib"
 GetVariable
 Push "util"
@@ -11150,11 +10783,11 @@ Pop
 Push register4 "add" 2 "setWhisperTarget"
 CallFunction
 Pop
-Jump locd143
-locd047:Push register10 1
+Jump loccbd4
+loccad8:Push register10 1
 Equals2
 Not
-If locd143
+If loccbd4
 Push "$031086" 1 "lib"
 GetVariable
 Push "util"
@@ -11225,11 +10858,11 @@ Pop
 Push register4 "add" 2 "setWhisperTarget"
 CallFunction
 Pop
-locd143:Jump locd226
-locd148:Push "bName"
+loccbd4:Jump locccb7
+loccbd9:Push "bName"
 GetVariable
 Not
-If locd18e
+If loccc1f
 Push "chatColor_array"
 GetVariable
 Push register1
@@ -11249,22 +10882,22 @@ Add2
 Add2
 StoreRegister 2
 Pop
-locd18e:Push "bLink"
+loccc1f:Push "bLink"
 GetVariable
 Not
-If locd226
+If locccb7
 Push register4 undefined
 Equals2
 Not
 PushDuplicate
 Not
-If locd1b4
+If loccc45
 Pop
 Push register4 ""
 Equals2
 Not
-locd1b4:Not
-If locd219
+loccc45:Not
+If locccaa
 Push register2 "<font color=\'" register8
 Add2
 Push "\'>"
@@ -11293,15 +10926,15 @@ Add2
 Add2
 StoreRegister 2
 Pop
-Jump locd226
-locd219:Push register2 ""
+Jump locccb7
+locccaa:Push register2 ""
 Add2
 StoreRegister 2
 Pop
-locd226:Push "bHTML"
+locccb7:Push "bHTML"
 GetVariable
 Not
-If locd25e
+If locccef
 Push register1 1 register9 3 "calcHtmlText"
 CallFunction
 StoreRegister 12
@@ -11310,8 +10943,8 @@ Push register2 register12
 Add2
 StoreRegister 2
 Pop
-Jump locd280
-locd25e:Push register2 "<font color=\'" register8
+Jump loccd11
+locccef:Push register2 "<font color=\'" register8
 Add2
 Push "\'>"
 Add2
@@ -11322,7 +10955,7 @@ Add2
 Add2
 StoreRegister 2
 Pop
-locd280:Push register10 register15 "bHTML"
+loccd11:Push register10 register15 "bHTML"
 GetVariable
 Push "bName"
 GetVariable
@@ -11358,7 +10991,7 @@ Push -1
 Equals2
 Not
 Not
-If locd362
+If loccdf3
 Push false "&lt;" "<" register1 4 "lib"
 GetVariable
 Push "util"
@@ -11369,13 +11002,13 @@ Push "replace"
 CallMethod
 StoreRegister 1
 Pop
-locd362:Push ">" 1 register1 "indexOf"
+loccdf3:Push ">" 1 register1 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
 Not
-If locd3ab
+If locce3c
 Push false "&gt;" ">" register1 4 "lib"
 GetVariable
 Push "util"
@@ -11386,7 +11019,7 @@ Push "replace"
 CallMethod
 StoreRegister 1
 Pop
-locd3ab:Push "<FONT>" register1
+locce3c:Push "<FONT>" register1
 Add2
 Push "</FONT>"
 Add2
@@ -11438,7 +11071,7 @@ DefineFunction2 "" 1 2 false false true false true false true false false 0 "cha
 Push 0.0
 StoreRegister 1
 Pop
-locd498:Push "container_mc"
+loccf29:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -11456,9 +11089,9 @@ GetMember
 Push undefined
 Equals2
 Not
-If locd4d6
-Jump locd498
-locd4d6:Push "container_mc"
+If loccf67
+Jump loccf29
+loccf67:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -11536,7 +11169,7 @@ GetMember
 Push "undefined"
 Equals2
 PushDuplicate
-If locd63e
+If locd0cf
 Pop
 Push "chatChannelArray"
 GetVariable
@@ -11549,8 +11182,8 @@ Subtract
 GetMember
 Push ""
 Equals2
-locd63e:PushDuplicate
-If locd668
+locd0cf:PushDuplicate
+If locd0f9
 Pop
 Push "chatChannelArray"
 GetVariable
@@ -11563,8 +11196,8 @@ Subtract
 GetMember
 Push undefined
 Equals2
-locd668:Not
-If locd69c
+locd0f9:Not
+If locd12d
 Push 1 "chatChannelArray"
 GetVariable
 Push "length"
@@ -11576,32 +11209,32 @@ GetVariable
 Push "splice"
 CallMethod
 Pop
-locd69c:Push register12 ""
+locd12d:Push register12 ""
 Equals2
 Not
 PushDuplicate
 Not
-If locd6b7
+If locd148
 Pop
 Push register12 "null"
 Equals2
 Not
-locd6b7:PushDuplicate
+locd148:PushDuplicate
 Not
-If locd6c9
+If locd15a
 Pop
 Push register12 "undefined"
 Equals2
 Not
-locd6c9:PushDuplicate
+locd15a:PushDuplicate
 Not
-If locd6d9
+If locd16a
 Pop
 Push register12 undefined
 Equals2
 Not
-locd6d9:Not
-If locd757
+locd16a:Not
+If locd1e8
 Push 0.0 1 0.0 "chatChannelArray"
 GetVariable
 Push "length"
@@ -11623,7 +11256,7 @@ GetVariable
 Push "createMovie"
 CallMethod
 Pop
-locd757:Push "container_mc"
+locd1e8:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -11651,13 +11284,13 @@ SetMember
 Push 0.0
 StoreRegister 6
 Pop
-locd7b5:Push register6 "chatChannelArray"
+locd246:Push register6 "chatChannelArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If locdab6
+If locd547
 Push "\t" 1 "chatChannelArray"
 GetVariable
 Push register6
@@ -11672,7 +11305,7 @@ Push 1
 Equals2
 Not
 Not
-If locdaa6
+If locd537
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -11700,13 +11333,13 @@ GetVariable
 Equals2
 PushDuplicate
 Not
-If locd863
+If locd2f4
 Pop
 Push register10 true
 Equals2
-locd863:PushDuplicate
+locd2f4:PushDuplicate
 Not
-If locd88a
+If locd31b
 Pop
 Push "container_mc"
 GetVariable
@@ -11719,21 +11352,21 @@ GetMember
 Push ""
 Equals2
 Not
-locd88a:Not
-If locd89a
+locd31b:Not
+If locd32b
 Push false
 StoreRegister 10
 Pop
-locd89a:Push register5 "currentChannel"
+locd32b:Push register5 "currentChannel"
 GetVariable
 Equals2
 Not
-If locd8b9
+If locd34a
 Push register4 1
 GetMember
 StoreRegister 11
 Pop
-locd8b9:Push register3 "stat" register6
+locd34a:Push register3 "stat" register6
 SetMember
 Push register3 "over"
 GetMember
@@ -11768,7 +11401,7 @@ SetMember
 Push register6 0.0
 Equals2
 Not
-If locd96c
+If locd3fd
 Push register4 1
 GetMember
 Push 1 "selectedChannel_txt"
@@ -11776,7 +11409,7 @@ GetVariable
 Push "setText"
 CallMethod
 Pop
-locd96c:Push register3 "onRollOver"
+locd3fd:Push register3 "onRollOver"
 DefineFunction2 "" 0 2 false false true false true false false true false  {
 Push register1 "over"
 GetMember
@@ -11823,7 +11456,7 @@ GetMember
 Push 1
 Equals2
 Not
-If locda6c
+If locd4fd
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -11835,8 +11468,8 @@ SetMember
 Push 0.0 "setFocusAtInput"
 CallFunction
 Pop
-Jump locdaa5
-locda6c:Push register2 " "
+Jump locd536
+locd4fd:Push register2 " "
 Add2
 Push 1 "ToGame_Chat_RequestSlashCommand"
 CallFunction
@@ -11853,16 +11486,16 @@ Push "setFocus"
 CallMethod
 Pop
 }
-locdaa5:SetMember
-locdaa6:Push register6
+locd536:SetMember
+locd537:Push register6
 Increment
 StoreRegister 6
 Pop
-Jump locd7b5
-locdab6:Push "firstComboBox1Data"
+Jump locd246
+locd547:Push "firstComboBox1Data"
 GetVariable
 Not
-If locdb0c
+If locd59d
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -11883,7 +11516,7 @@ Push "opened" false
 SetMember
 Push "firstComboBox1Data" false
 SetVariable
-locdb0c:Push "container_mc"
+locd59d:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -11983,7 +11616,7 @@ Pop
 Push "comboBox1AbsoluteClose"
 GetVariable
 Not
-If locdd27
+If locd7b8
 Push 1 1 register1 "_parent"
 GetMember
 Push "arrow"
@@ -12020,8 +11653,8 @@ GetMember
 Push "to"
 CallMethod
 Pop
-Jump locdeb8
-locdd27:Push "container_mc"
+Jump locd949
+locd7b8:Push "container_mc"
 GetVariable
 Push "input_mc"
 GetMember
@@ -12030,7 +11663,7 @@ GetMember
 Push "opened"
 GetMember
 Not
-If locdde4
+If locd875
 Push 1 1 register1 "_parent"
 GetMember
 Push "arrow"
@@ -12067,8 +11700,8 @@ GetMember
 Push "to"
 CallMethod
 Pop
-Jump locdeb8
-locdde4:Push 2 1 register1 "_parent"
+Jump locd949
+locd875:Push 2 1 register1 "_parent"
 GetMember
 Push "arrow"
 GetMember
@@ -12123,20 +11756,20 @@ GetMember
 Push "to"
 CallMethod
 Pop
-locdeb8:Push "comboBox1AbsoluteClose" false
+locd949:Push "comboBox1AbsoluteClose" false
 SetVariable
 }
 SetMember
 Push 0.0
 StoreRegister 6
 Pop
-locded2:Push register6 "channelNum_array"
+locd963:Push register6 "channelNum_array"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If locdf35
+If locd9c6
 Push "channelNum_array"
 GetVariable
 Push register6
@@ -12152,30 +11785,30 @@ GetMember
 Push 2
 Equals2
 Not
-If locdf25
+If locd9b6
 Push register2 "inputing" false
 SetMember
-locdf25:Push register6
+locd9b6:Push register6
 Increment
 StoreRegister 6
 Pop
-Jump locded2
-locdf35:Push register2 "inputing"
+Jump locd963
+locd9c6:Push register2 "inputing"
 GetMember
 PushDuplicate
 Not
-If locdf4d
+If locd9de
 Pop
 Push register2 "chating"
 GetMember
-locdf4d:PushDuplicate
+locd9de:PushDuplicate
 Not
-If locdf5d
+If locd9ee
 Pop
 Push register10 false
 Equals2
-locdf5d:Not
-If loce04f
+locd9ee:Not
+If locdae0
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12189,10 +11822,10 @@ GetMember
 Push "content_mc"
 GetMember
 Enumerate2
-locdf88:StoreRegister 0
+locda19:StoreRegister 0
 Push null
 Equals2
-If loce04a
+If locdadb
 Push "line" register0
 SetVariable
 Push "container_mc"
@@ -12214,7 +11847,7 @@ TypeOf
 Push "movieclip"
 Equals2
 Not
-If loce045
+If locdad6
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12237,7 +11870,7 @@ Push "currentChannel"
 GetVariable
 Equals2
 Not
-If loce045
+If locdad6
 Push register11 1 "selectedChannel_txt"
 GetVariable
 Push "setText"
@@ -12253,9 +11886,9 @@ GetMember
 Push "color"
 GetMember
 SetMember
-loce045:Jump locdf88
-loce04a:Jump loce0d3
-loce04f:Push "currentChannel" 0.0
+locdad6:Jump locda19
+locdadb:Jump locdb64
+locdae0:Push "currentChannel" 0.0
 SetVariable
 Push "channelMc"
 GetVariable
@@ -12282,7 +11915,7 @@ Pop
 Push register14
 Not
 Not
-If loce0d3
+If locdb64
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12292,7 +11925,7 @@ GetMember
 Push "textColor" "0xFFFFFF"
 SetMember
 }
-loce0d3:SetMember
+locdb64:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_UpdateChannelList"
@@ -12300,13 +11933,13 @@ DefineFunction2 "" 2 5 false false true false true false true false false 4 "cha
 Push 0.0
 StoreRegister 1
 Pop
-loce110:Push register1 "chatChannelArray"
+locdba1:Push register1 "chatChannelArray"
 GetVariable
 Push "length"
 GetMember
 Less2
 Not
-If loce192
+If locdc23
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12329,19 +11962,19 @@ GetMember
 Push register4
 Equals2
 Not
-If loce182
+If locdc13
 Push register2 "text_txt"
 GetMember
 Push "text" register3
 SetMember
-Jump loce192
-loce182:Push register1
+Jump locdc23
+locdc13:Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loce110
+Jump locdba1
 }
-loce192:SetMember
+locdc23:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_ChangeChannel"
@@ -12354,7 +11987,7 @@ Push register3 -1
 Equals2
 Not
 Not
-If loce224
+If locdcb5
 Push "/>" 1 register1 "indexOf"
 CallMethod
 Push 2
@@ -12367,7 +12000,7 @@ Push register4 2 register1 "substring"
 CallMethod
 StoreRegister 1
 Pop
-loce224:Push register2
+locdcb5:Push register2
 ToNumber
 StoreRegister 2
 Pop
@@ -12380,16 +12013,16 @@ GetMember
 Push 1
 Equals2
 Not
-If loce266
+If locdcf7
 Push register1 register2 2 "setChatChannel"
 CallFunction
 Pop
-Jump loce275
-loce266:Push register2 1 "setChatChannel"
+Jump locdd06
+locdcf7:Push register2 1 "setChatChannel"
 CallFunction
 Pop
 }
-loce275:SetMember
+locdd06:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_SetLanguageInfo"
@@ -12397,7 +12030,7 @@ DefineFunction2 "" 1 2 false false true false true false true false false 1 "lan
 Push register1 "0"
 Equals2
 Not
-If loce2e6
+If locdd77
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12415,11 +12048,11 @@ GetMember
 Push "getUIString"
 CallMethod
 SetMember
-Jump loce330
-loce2e6:Push register1 "1"
+Jump locddc1
+locdd77:Push register1 "1"
 Equals2
 Not
-If loce330
+If locddc1
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12438,7 +12071,7 @@ Push "getUIString"
 CallMethod
 SetMember
 }
-loce330:SetMember
+locddc1:SetMember
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12478,18 +12111,18 @@ GetMember
 Push 1
 Equals2
 Not
-If loce40e
+If locde9f
 Push register2 register3 register1 3 "setChatChannel"
 CallFunction
 Pop
-Jump loce421
-loce40e:Push register2 register3 register1 3 "setChatChannel"
+Jump locdeb2
+locde9f:Push register2 register3 register1 3 "setChatChannel"
 CallFunction
 Pop
-loce421:Push false register2
+locdeb2:Push false register2
 Equals2
 Not
-If loce449
+If locdeda
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12499,7 +12132,7 @@ GetMember
 Push "text" ""
 SetMember
 }
-loce449:SetMember
+locdeda:SetMember
 Push "recentMsg_array" 0.0 "Array"
 NewObject
 DefineLocal
@@ -12572,29 +12205,29 @@ CallMethod
 Push ""
 Equals2
 Not
-If loce58a
+If loce01b
 Push true
 StoreRegister 11
 Pop
-loce58a:Push "inputOpen"
+loce01b:Push "inputOpen"
 GetVariable
 PushDuplicate
 Not
-If loce5a7
+If loce038
 Pop
 Push register1 "chating"
 GetMember
 Push true
 Equals2
-loce5a7:Not
-If locf1ba
+loce038:Not
+If locec4b
 Push register4 13
 Equals2
 Not
-If loce72a
+If loce1bb
 Push register11
 Not
-If loce5f1
+If loce082
 Push false 1 "myListener"
 GetVariable
 Push "OnGame_Chat_ChangeChatMode"
@@ -12602,11 +12235,11 @@ CallMethod
 Pop
 Push "linkNum" 0.0
 SetVariable
-Jump loce714
-loce5f1:Push "whisperReadyMode"
+Jump loce1a5
+loce082:Push "whisperReadyMode"
 GetVariable
 Not
-If loce628
+If loce0b9
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -12618,8 +12251,8 @@ GetMember
 Push "add" 2 "setWhisperTarget"
 CallFunction
 Pop
-Jump loce714
-loce628:Push 0.0 "setFocusAtInput"
+Jump loce1a5
+loce0b9:Push 0.0 "setFocusAtInput"
 CallFunction
 Pop
 Push 0.0 "calcHtmlText"
@@ -12629,7 +12262,7 @@ Pop
 Push "whisperMode"
 GetVariable
 Not
-If loce6bb
+If loce14c
 Push "link_array"
 GetVariable
 Push "container_mc"
@@ -12658,8 +12291,8 @@ GetVariable
 Push 4 "ToGame_Chat_SendWriting"
 CallFunction
 Pop
-Jump loce714
-loce6bb:Push "link_array"
+Jump loce1a5
+loce14c:Push "link_array"
 GetVariable
 Push "container_mc"
 GetVariable
@@ -12685,46 +12318,46 @@ GetVariable
 Push 4 "ToGame_Chat_SendWriting"
 CallFunction
 Pop
-loce714:Push 0.0 "clearInputTxt"
+loce1a5:Push 0.0 "clearInputTxt"
 CallFunction
 Pop
 Push undefined
 Return
-loce72a:Push register4 27
+loce1bb:Push register4 27
 Equals2
 Not
-If loce777
+If loce208
 Push "inputOpen"
 GetVariable
 PushDuplicate
 Not
-If loce758
+If loce1e9
 Pop
 Push register1 "chating"
 GetMember
 Push true
 Equals2
-loce758:Not
-If loce772
+loce1e9:Not
+If loce203
 Push false 1 "myListener"
 GetVariable
 Push "OnGame_Chat_ChangeChatMode"
 CallMethod
 Pop
-loce772:Jump locebdf
-loce777:Push register4 38
+loce203:Jump loce670
+loce208:Push register4 38
 Equals2
 Not
-If loce7ff
+If loce290
 Push "whisperReadyMode"
 GetVariable
 PushDuplicate
-If loce79b
+If loce22c
 Pop
 Push "whisperMode"
 GetVariable
-loce79b:Not
-If loce7cf
+loce22c:Not
+If loce260
 Push "whisperTarget_array"
 GetVariable
 Push "length"
@@ -12732,12 +12365,12 @@ GetMember
 Push 1
 Greater
 Not
-If loce7ca
+If loce25b
 Push "next" 1 "setWhisperTarget"
 CallFunction
 Pop
-loce7ca:Jump loce7fa
-loce7cf:Push "recentMsg_array"
+loce25b:Jump loce28b
+loce260:Push "recentMsg_array"
 GetVariable
 Push "length"
 GetMember
@@ -12745,24 +12378,24 @@ Push 1
 Less2
 Not
 Not
-If loce7fa
+If loce28b
 Push "prev" 1 "setRecentMsg"
 CallFunction
 Pop
-loce7fa:Jump locebdf
-loce7ff:Push register4 40
+loce28b:Jump loce670
+loce290:Push register4 40
 Equals2
 Not
-If loce887
+If loce318
 Push "whisperReadyMode"
 GetVariable
 PushDuplicate
-If loce823
+If loce2b4
 Pop
 Push "whisperMode"
 GetVariable
-loce823:Not
-If loce857
+loce2b4:Not
+If loce2e8
 Push "whisperTarget_array"
 GetVariable
 Push "length"
@@ -12770,12 +12403,12 @@ GetMember
 Push 1
 Greater
 Not
-If loce852
+If loce2e3
 Push "prev" 1 "setWhisperTarget"
 CallFunction
 Pop
-loce852:Jump loce882
-loce857:Push "recentMsg_array"
+loce2e3:Jump loce313
+loce2e8:Push "recentMsg_array"
 GetVariable
 Push "length"
 GetMember
@@ -12783,18 +12416,18 @@ Push 1
 Less2
 Not
 Not
-If loce882
+If loce313
 Push "next" 1 "setRecentMsg"
 CallFunction
 Pop
-loce882:Jump locebdf
-loce887:Push register4 37
+loce313:Jump loce670
+loce318:Push register4 37
 Equals2
 Not
-If loce9ee
+If loce47f
 Push register11
 Not
-If loce9e9
+If loce47a
 Push null
 StoreRegister 10
 Pop
@@ -12831,43 +12464,43 @@ Push 1
 Equals2
 Not
 Not
-If loce940
+If loce3d1
 Push register10 1 "setChatChannel"
 CallFunction
 Pop
-Jump loce9e9
-loce940:Push "currentWhisperTarget"
+Jump loce47a
+loce3d1:Push "currentWhisperTarget"
 GetVariable
 Push ""
 Equals2
 Not
 PushDuplicate
 Not
-If loce961
+If loce3f2
 Pop
 Push "currentWhisperTarget"
 GetVariable
 Push undefined
 Equals2
 Not
-loce961:PushDuplicate
+loce3f2:PushDuplicate
 Not
-If loce977
+If loce408
 Pop
 Push "currentWhisperTarget"
 GetVariable
 Push "undefined"
 Equals2
 Not
-loce977:Not
-If loce997
+loce408:Not
+If loce428
 Push "currentWhisperTarget"
 GetVariable
 Push register10 2 "setChatChannel"
 CallFunction
 Pop
-Jump loce9e9
-loce997:Push 0.0 "channelNum_array"
+Jump loce47a
+loce428:Push 0.0 "channelNum_array"
 GetVariable
 Push "pop"
 CallMethod
@@ -12885,14 +12518,14 @@ Pop
 Push register10 1 "setChatChannel"
 CallFunction
 Pop
-loce9e9:Jump locebdf
-loce9ee:Push register4 39
+loce47a:Jump loce670
+loce47f:Push register4 39
 Equals2
 Not
-If loceb53
+If loce5e4
 Push register11
 Not
-If loceb4e
+If loce5df
 Push null
 StoreRegister 10
 Pop
@@ -12929,43 +12562,43 @@ Push 1
 Equals2
 Not
 Not
-If loceaa6
+If loce537
 Push register10 1 "setChatChannel"
 CallFunction
 Pop
-Jump loceb4e
-loceaa6:Push "currentWhisperTarget"
+Jump loce5df
+loce537:Push "currentWhisperTarget"
 GetVariable
 Push ""
 Equals2
 Not
 PushDuplicate
 Not
-If loceac7
+If loce558
 Pop
 Push "currentWhisperTarget"
 GetVariable
 Push undefined
 Equals2
 Not
-loceac7:PushDuplicate
+loce558:PushDuplicate
 Not
-If loceadd
+If loce56e
 Pop
 Push "currentWhisperTarget"
 GetVariable
 Push "undefined"
 Equals2
 Not
-loceadd:Not
-If loceafd
+loce56e:Not
+If loce58e
 Push "currentWhisperTarget"
 GetVariable
 Push register10 2 "setChatChannel"
 CallFunction
 Pop
-Jump loceb4e
-loceafd:Push 0.0 "channelNum_array"
+Jump loce5df
+loce58e:Push 0.0 "channelNum_array"
 GetVariable
 Push "shift"
 CallMethod
@@ -12983,11 +12616,11 @@ Pop
 Push register10 1 "setChatChannel"
 CallFunction
 Pop
-loceb4e:Jump locebdf
-loceb53:Push register4 9
+loce5df:Jump loce670
+loce5e4:Push register4 9
 Equals2
 Not
-If locebdf
+If loce670
 Push undefined
 StoreRegister 13
 Pop
@@ -13002,7 +12635,7 @@ GetVariable
 Push "getVisible"
 CallMethod
 Not
-If locebb9
+If loce64a
 Push "tab"
 GetVariable
 Push "activedNum"
@@ -13011,16 +12644,16 @@ Push 1
 Add2
 StoreRegister 13
 Pop
-Jump locebca
-locebb9:Push 0.0
+Jump loce65b
+loce64a:Push 0.0
 StoreRegister 13
 Pop
-locebca:Push register13 1 "tab"
+loce65b:Push register13 1 "tab"
 GetVariable
 Push "setTab"
 CallMethod
 Pop
-locebdf:Push "notInputArea" false
+loce670:Push "notInputArea" false
 SetVariable
 Push "linkDelete" false
 SetVariable
@@ -13043,12 +12676,12 @@ Push register4 37
 Equals2
 PushDuplicate
 Not
-If locec40
+If loce6d1
 Pop
 Push register3 0.0
 Greater
-locec40:Not
-If locec68
+loce6d1:Not
+If loce6f9
 Push register3 1
 Subtract
 StoreRegister 3
@@ -13056,12 +12689,12 @@ Pop
 Push -1
 StoreRegister 7
 Pop
-Jump loced13
-locec68:Push register4 39
+Jump loce7a4
+loce6f9:Push register4 39
 Equals2
 PushDuplicate
 Not
-If locec96
+If loce727
 Pop
 Push register3 "container_mc"
 GetVariable
@@ -13072,8 +12705,8 @@ GetMember
 Push "length"
 GetMember
 Less2
-locec96:Not
-If locecbe
+loce727:Not
+If loce74f
 Push register3 1
 Add2
 StoreRegister 3
@@ -13081,19 +12714,19 @@ Pop
 Push 1
 StoreRegister 7
 Pop
-Jump loced13
-locecbe:Push register4 38
+Jump loce7a4
+loce74f:Push register4 38
 Equals2
 Not
-If locece5
+If loce776
 Push 0.0
 StoreRegister 3
 Pop
-Jump loced13
-locece5:Push register4 40
+Jump loce7a4
+loce776:Push register4 40
 Equals2
 Not
-If loced13
+If loce7a4
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -13104,7 +12737,7 @@ Push "length"
 GetMember
 StoreRegister 3
 Pop
-loced13:Push null
+loce7a4:Push null
 StoreRegister 6
 Pop
 Push null
@@ -13116,10 +12749,10 @@ Pop
 Push 0.0
 StoreRegister 2
 Pop
-loced3f:Push register2 register9
+loce7d0:Push register2 register9
 Less2
 Not
-If locf0fb
+If loceb8c
 Push "link_array"
 GetVariable
 Push register2
@@ -13143,19 +12776,19 @@ SetMember
 Push register4 8
 Equals2
 Not
-If loceec6
+If loce957
 Push register3 register6
 Less2
 Not
 PushDuplicate
 Not
-If locedb5
+If loce846
 Pop
 Push register3 register5
 Greater
 Not
-locedb5:Not
-If locedd8
+loce846:Not
+If loce869
 Push "linkDelete" true
 SetVariable
 Push "eraseLinkIndex" "link_array"
@@ -13163,8 +12796,8 @@ GetVariable
 Push "curElementAtcaret"
 GetMember
 SetVariable
-Jump locf0fb
-locedd8:Push "linkDelete" false
+Jump loceb8c
+loce869:Push "linkDelete" false
 SetVariable
 Push "delaynum" 0.0
 DefineLocal
@@ -13185,7 +12818,7 @@ GetVariable
 Push 1
 Greater
 Not
-If loceeb4
+If loce945
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -13203,7 +12836,7 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loceeb4
+If loce945
 Push "linkNum" 0.0
 SetVariable
 Push true 1 "inputFocus"
@@ -13222,31 +12855,31 @@ GetMember
 Push "txt"
 GetMember
 SetMember
-loceeb4:Push "delaynum" "delaynum"
+loce945:Push "delaynum" "delaynum"
 GetVariable
 Increment
 SetVariable
 }
 SetMember
-Jump locf0eb
-loceec6:Push register4 46
+Jump loceb7c
+loce957:Push register4 46
 Equals2
 Not
-If locf00e
+If locea9f
 Push register3 register6 1
 Subtract
 Less2
 Not
 PushDuplicate
 Not
-If loceefd
+If loce98e
 Pop
 Push register3 register5 1
 Subtract
 Greater
 Not
-loceefd:Not
-If locef20
+loce98e:Not
+If loce9b1
 Push "linkDelete" true
 SetVariable
 Push "eraseLinkIndex" "link_array"
@@ -13254,8 +12887,8 @@ GetVariable
 Push "curElementAtcaret"
 GetMember
 SetVariable
-Jump locf0fb
-locef20:Push "linkDelete" false
+Jump loceb8c
+loce9b1:Push "linkDelete" false
 SetVariable
 Push "delaynum" 0.0
 DefineLocal
@@ -13276,7 +12909,7 @@ GetVariable
 Push 1
 Greater
 Not
-If loceffc
+If locea8d
 Push "container_mc"
 GetVariable
 Push "input_mc"
@@ -13294,7 +12927,7 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loceffc
+If locea8d
 Push "linkNum" 0.0
 SetVariable
 Push true 1 "inputFocus"
@@ -13313,26 +12946,26 @@ GetMember
 Push "txt"
 GetMember
 SetMember
-loceffc:Push "delaynum" "delaynum"
+locea8d:Push "delaynum" "delaynum"
 GetVariable
 Increment
 SetVariable
 }
 SetMember
-Jump locf0eb
-locf00e:Push register3 register6
+Jump loceb7c
+locea9f:Push register3 register6
 Less2
 Not
 PushDuplicate
 Not
-If locf02e
+If loceabf
 Pop
 Push register3 register5 1
 Subtract
 Greater
 Not
-locf02e:Not
-If locf0eb
+loceabf:Not
+If loceb7c
 Push "notInputArea" true
 SetVariable
 Push register2
@@ -13341,7 +12974,7 @@ Pop
 Push register7 -1
 Equals2
 Not
-If locf092
+If loceb23
 Push "link_array"
 GetVariable
 Push register2
@@ -13359,11 +12992,11 @@ GetVariable
 Push "setSelection"
 CallMethod
 Pop
-Jump locf0eb
-locf092:Push register7 1
+Jump loceb7c
+loceb23:Push register7 1
 Equals2
 Not
-If locf0eb
+If loceb7c
 Push "link_array"
 GetVariable
 Push register2
@@ -13385,29 +13018,29 @@ GetVariable
 Push "setSelection"
 CallMethod
 Pop
-locf0eb:Push register2
+loceb7c:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loced3f
-locf0fb:Push register4 36
+Jump loce7d0
+loceb8c:Push register4 36
 Equals2
 PushDuplicate
-If locf118
+If loceba9
 Pop
 Push register4 33
 Equals2
-locf118:PushDuplicate
-If locf12a
+loceba9:PushDuplicate
+If locebbb
 Pop
 Push register4 37
 Equals2
-locf12a:Not
-If locf141
+locebbb:Not
+If locebd2
 Push 0.0 "impossibleCaretCheck"
 CallFunction
 Pop
-locf141:Push "saveDownKey" register4
+locebd2:Push "saveDownKey" register4
 SetVariable
 Push 0.0 "Selection"
 GetVariable
@@ -13420,7 +13053,7 @@ CallMethod
 Equals2
 Not
 Not
-If locf1b5
+If locec46
 Push "selectionInputIndex" 0.0 "Selection"
 GetVariable
 Push "getEndIndex"
@@ -13432,23 +13065,23 @@ CallMethod
 Push 2
 InitArray
 SetVariable
-locf1b5:Jump locf25d
-locf1ba:Push register4 191
+locec46:Jump locecee
+locec4b:Push register4 191
 Equals2
 Not
-If locf25d
+If locecee
 Push register1 "inputing"
 GetMember
 Not
 PushDuplicate
 Not
-If locf1e5
+If locec76
 Pop
 Push register1 "chating"
 GetMember
 Not
-locf1e5:Not
-If locf25d
+locec76:Not
+If locecee
 Push "saveText" ""
 SetVariable
 Push "dummy"
@@ -13480,7 +13113,7 @@ Push "OnGame_Chat_ChangeChatMode"
 CallMethod
 Pop
 }
-locf25d:SetMember
+locecee:SetMember
 Push "checkCaretPos" 1
 DefineLocal
 Push "firstFormat" 0.0 "container_mc"
@@ -13688,7 +13321,7 @@ Equals2
 Not
 PushDuplicate
 Not
-If locf606
+If locf097
 Pop
 Push 0.0 "lib"
 GetVariable
@@ -13703,24 +13336,24 @@ CallMethod
 Push undefined
 Equals2
 Not
-locf606:Not
-If locf611
+locf097:Not
+If locf0a2
 Push undefined
 Return
-locf611:Push "nowLinking"
+locf0a2:Push "nowLinking"
 GetVariable
 Not
 PushDuplicate
 Not
-If locf62f
+If locf0c0
 Pop
 Push "linkNum"
 GetVariable
 Push "enableLinkNum"
 GetVariable
 Less2
-locf62f:Not
-If locf7ec
+locf0c0:Not
+If locf27d
 Push "container_mc"
 GetVariable
 Push "onEnterFrame"
@@ -13750,7 +13383,7 @@ Pop
 Push register4 1
 Equals2
 Not
-If locf6b3
+If locf144
 Push "itemLinkTextColor"
 GetVariable
 Push register8
@@ -13758,14 +13391,14 @@ ToNumber
 GetMember
 StoreRegister 5
 Pop
-Jump locf6c5
-locf6b3:Push "linkTextColor"
+Jump locf156
+locf144:Push "linkTextColor"
 GetVariable
 Push register4
 GetMember
 StoreRegister 5
 Pop
-locf6c5:Push "<a href=\"asfunction:chatLinkAction," register4
+locf156:Push "<a href=\"asfunction:chatLinkAction," register4
 Add2
 Push "#####"
 Add2
@@ -13820,7 +13453,7 @@ Push 2
 Less2
 Not
 Not
-If locf7e6
+If locf277
 Push 1 "OnGame_Chat_ChangeChatMode" 2 register2 "OnGameEvent"
 CallMethod
 Pop
@@ -13840,13 +13473,13 @@ Push register1 "onEnterFrame"
 Delete
 Pop
 }
-locf7e6:SetMember
-Jump locf802
-locf7ec:Push 1 "OnGame_Chat_ChangeChatMode" 2 register2 "OnGameEvent"
+locf277:SetMember
+Jump locf293
+locf27d:Push 1 "OnGame_Chat_ChangeChatMode" 2 register2 "OnGameEvent"
 CallMethod
 Pop
 }
-locf802:SetMember
+locf293:SetMember
 Push "lineH" 43
 DefineLocal
 Push "gapH" "container_mc"
@@ -13909,12 +13542,12 @@ GetMember
 Push 1
 Equals2
 Not
-If locf8f7
+If locf388
 Push 2 1 register1 "gotoAndStop"
 CallMethod
 Pop
 }
-locf8f7:SetMember
+locf388:SetMember
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -13934,12 +13567,12 @@ GetMember
 Push 2
 Equals2
 Not
-If locf95c
+If locf3ed
 Push 1 1 register1 "gotoAndStop"
 CallMethod
 Pop
 }
-locf95c:StoreRegister 0
+locf3ed:StoreRegister 0
 SetMember
 Push register0
 SetMember
@@ -13983,7 +13616,7 @@ Push 3
 Equals2
 Not
 Not
-If locfb65
+If locf5f6
 Push 3 1 register1 "gotoAndStop"
 CallMethod
 Pop
@@ -14018,7 +13651,7 @@ Push "yPixelToRatio"
 CallMethod
 Greater
 Not
-If locfad3
+If locf564
 Push "container_mc"
 GetVariable
 Push "optionMenu_mc"
@@ -14036,8 +13669,8 @@ GetMember
 Multiply
 Add2
 SetMember
-Jump locfb1f
-locfad3:Push "container_mc"
+Jump locf5b0
+locf564:Push "container_mc"
 GetVariable
 Push "optionMenu_mc"
 GetMember
@@ -14061,7 +13694,7 @@ GetMember
 Multiply
 Subtract
 SetMember
-locfb1f:Push 0.0 "chatOptionOutStart"
+locf5b0:Push 0.0 "chatOptionOutStart"
 CallFunction
 Pop
 Push "container_mc"
@@ -14073,16 +13706,16 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If locfb60
+If locf5f1
 Push 1 1 "startTabOptionOut"
 CallFunction
 Pop
-locfb60:Jump locfb76
-locfb65:Push 0.0 "chatOptionOutEnd"
+locf5f1:Jump locf607
+locf5f6:Push 0.0 "chatOptionOutEnd"
 CallFunction
 Pop
 }
-locfb76:SetMember
+locf607:SetMember
 Push 1 "lib"
 GetVariable
 Push "info"
@@ -14213,17 +13846,17 @@ Push register3 undefined
 Equals2
 Not
 Not
-If locfe1a
+If locf8ab
 Push register3
 ToNumber
 StoreRegister 3
 Pop
-Jump locfe26
-locfe1a:Push "mainTabAlpha"
+Jump locf8b7
+locf8ab:Push "mainTabAlpha"
 GetVariable
 StoreRegister 3
 Pop
-locfe26:Push register17
+locf8b7:Push register17
 ToNumber
 StoreRegister 17
 Pop
@@ -14253,7 +13886,7 @@ Pop
 Push register17 0.0
 Equals2
 Not
-If loc1006d
+If locfafe
 Push "chatObjects"
 GetVariable
 Push register1
@@ -14265,7 +13898,7 @@ Pop
 Push register2 -1
 Equals2
 Not
-If locffb1
+If locfa42
 Push true
 StoreRegister 14
 Pop
@@ -14330,7 +13963,7 @@ Pop
 Push register7 1 "changeTabInMainChat"
 CallFunction
 Pop
-locffb1:Push "tab"
+locfa42:Push "tab"
 GetVariable
 Push "txt_array"
 GetMember
@@ -14361,15 +13994,15 @@ Push register14 false
 Equals2
 PushDuplicate
 Not
-If loc1002e
+If locfabf
 Pop
 Push register1 "tab"
 GetVariable
 Push "activedNum"
 GetMember
 Equals2
-loc1002e:Not
-If loc10068
+locfabf:Not
+If locfaf9
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -14386,8 +14019,8 @@ Push "txt"
 GetMember
 Push "fontScaleFactor" register4
 SetMember
-loc10068:Jump loc1023b
-loc1006d:Push "chatObjects"
+locfaf9:Jump locfccc
+locfafe:Push "chatObjects"
 GetVariable
 Push register1
 GetMember
@@ -14398,7 +14031,7 @@ Pop
 Push register5 -1
 Equals2
 Not
-If loc10195
+If locfc26
 Push "tab"
 GetVariable
 Push "activedNum"
@@ -14406,11 +14039,11 @@ GetMember
 Push register1
 Equals2
 Not
-If loc100b8
+If locfb49
 Push true
 StoreRegister 11
 Pop
-loc100b8:Push "chatObjects"
+locfb49:Push "chatObjects"
 GetVariable
 Push register1
 GetMember
@@ -14467,7 +14100,7 @@ GetVariable
 Push "push"
 CallMethod
 Pop
-loc10195:Push "chatObjects"
+locfc26:Push "chatObjects"
 GetVariable
 Push register1
 GetMember
@@ -14506,17 +14139,17 @@ Push "fontScaleFactor" register4
 SetMember
 Push register11
 Not
-If loc1023b
+If locfccc
 Push "attachIndex"
 GetVariable
 Push 1 "changeTabInMainChat"
 CallFunction
 Pop
-loc1023b:Push register1 "firstIndex"
+locfccc:Push register1 "firstIndex"
 GetVariable
 Equals2
 Not
-If loc103be
+If locfe4f
 Push "chatObjects"
 GetVariable
 Push register1
@@ -14527,12 +14160,12 @@ SetMember
 Push register8 -1
 Equals2
 Not
-If loc10288
+If locfd19
 Push 0.0 "initMainChatPos"
 CallFunction
 Pop
-Jump loc102fa
-loc10288:Push "container_mc"
+Jump locfd8b
+locfd19:Push "container_mc"
 GetVariable
 Push "_x" register8
 SetMember
@@ -14562,7 +14195,7 @@ GetMember
 Push "yPixelToRatio"
 CallMethod
 SetMember
-loc102fa:Push register13 register12 2 "baseViewerSizeSet"
+locfd8b:Push register13 register12 2 "baseViewerSizeSet"
 CallFunction
 Pop
 Push "container_mc"
@@ -14622,7 +14255,7 @@ Push "_height"
 GetMember
 Subtract
 SetMember
-loc103be:Push "chatObjects"
+locfe4f:Push "chatObjects"
 GetVariable
 Push register1
 GetMember
@@ -14669,17 +14302,17 @@ Push register2 undefined
 Equals2
 Not
 Not
-If loc104ae
+If locff3f
 Push register2
 ToNumber
 StoreRegister 2
 Pop
-Jump loc104ba
-loc104ae:Push "mainTabAlpha"
+Jump locff4b
+locff3f:Push "mainTabAlpha"
 GetVariable
 StoreRegister 2
 Pop
-loc104ba:Push register12
+locff4b:Push register12
 ToNumber
 StoreRegister 12
 Pop
@@ -14698,7 +14331,7 @@ GetMember
 Push null
 Equals2
 PushDuplicate
-If loc10509
+If locff9a
 Pop
 Push "chatObjects"
 GetVariable
@@ -14706,8 +14339,8 @@ Push register1
 GetMember
 Push undefined
 Equals2
-loc10509:Not
-If loc108b8
+locff9a:Not
+If loc10349
 Push "chatObjects"
 GetVariable
 Push register1 0.0 "createNewChatObj"
@@ -14716,7 +14349,7 @@ SetMember
 Push register12 0.0
 Equals2
 Not
-If loc1060b
+If loc1009c
 Push "tabArray"
 GetVariable
 Push "length"
@@ -14772,8 +14405,8 @@ GetVariable
 Push "push"
 CallMethod
 Pop
-Jump loc106ab
-loc1060b:Push "viewerArray"
+Jump loc1013c
+loc1009c:Push "viewerArray"
 GetVariable
 Push "length"
 GetMember
@@ -14810,12 +14443,12 @@ GetVariable
 Push "push"
 CallMethod
 Pop
-loc106ab:Push "firstIndex"
+loc1013c:Push "firstIndex"
 GetVariable
 Push -1
 Equals2
 Not
-If loc1087f
+If loc10310
 Push "firstIndex" register1
 SetVariable
 Push "chatObjects"
@@ -14830,12 +14463,12 @@ SetVariable
 Push register5 -1
 Equals2
 Not
-If loc10710
+If loc101a1
 Push 0.0 "initMainChatPos"
 CallFunction
 Pop
-Jump loc10782
-loc10710:Push "container_mc"
+Jump loc10213
+loc101a1:Push "container_mc"
 GetVariable
 Push "_x" register5
 SetMember
@@ -14865,7 +14498,7 @@ GetMember
 Push "yPixelToRatio"
 CallMethod
 SetMember
-loc10782:Push register9 register8 2 "baseViewerSizeSet"
+loc10213:Push register9 register8 2 "baseViewerSizeSet"
 CallFunction
 Pop
 Push "container_mc"
@@ -14931,7 +14564,7 @@ Push null
 Equals2
 Not
 Not
-If loc1087f
+If loc10310
 Push "chatObjects"
 GetVariable
 Push register1
@@ -14942,7 +14575,7 @@ SetMember
 Push 0.0 "refreshTexts"
 CallFunction
 Pop
-loc1087f:Push "chatObjects"
+loc10310:Push "chatObjects"
 GetVariable
 Push register1
 GetMember
@@ -14958,7 +14591,7 @@ Push 0.0 "changeMainTab"
 CallFunction
 Pop
 }
-loc108b8:SetMember
+loc10349:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_Chat_ResetInfo"
@@ -14983,7 +14616,7 @@ Push null
 Equals2
 Not
 Not
-If loc10b7e
+If loc1060f
 Push "x" "sepaDragingMc"
 GetVariable
 Push "_x"
@@ -15022,7 +14655,7 @@ Pop
 Push 1
 StoreRegister 2
 Pop
-loc109bb:Push register2 "tabArray"
+loc1044c:Push register2 "tabArray"
 GetVariable
 Push "length"
 GetMember
@@ -15030,7 +14663,7 @@ Push 1
 Add2
 Less2
 Not
-If loc10aaa
+If loc1053b
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -15050,7 +14683,7 @@ Less2
 Not
 PushDuplicate
 Not
-If loc10a36
+If loc104c7
 Pop
 Push register3 "x"
 GetMember
@@ -15062,9 +14695,9 @@ Add2
 Push register4
 Add2
 Less2
-loc10a36:PushDuplicate
+loc104c7:PushDuplicate
 Not
-If loc10a57
+If loc104e8
 Pop
 Push register3 "y"
 GetMember
@@ -15074,9 +14707,9 @@ Push register4
 Subtract
 Less2
 Not
-loc10a57:PushDuplicate
+loc104e8:PushDuplicate
 Not
-If loc10a80
+If loc10511
 Pop
 Push register3 "y"
 GetMember
@@ -15088,27 +14721,27 @@ Add2
 Push register4
 Add2
 Less2
-loc10a80:Not
-If loc10a9a
+loc10511:Not
+If loc1052b
 Push register1 "_visible" true
 SetMember
 Push register2
 StoreRegister 5
 Pop
-loc10a9a:Push register2
+loc1052b:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc109bb
-loc10aaa:Push register5 null
+Jump loc1044c
+loc1053b:Push register5 null
 Equals2
 Not
 Not
-If loc10b25
+If loc105b6
 Push 1
 StoreRegister 2
 Pop
-loc10ac5:Push register2 "tabArray"
+loc10556:Push register2 "tabArray"
 GetVariable
 Push "length"
 GetMember
@@ -15116,12 +14749,12 @@ Push 1
 Add2
 Less2
 Not
-If loc10b20
+If loc105b1
 Push register2 register5
 Equals2
 Not
 Not
-If loc10b10
+If loc105a1
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -15131,16 +14764,16 @@ Add2
 GetMember
 Push "_visible" false
 SetMember
-loc10b10:Push register2
+loc105a1:Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc10ac5
-loc10b20:Jump loc10b7e
-loc10b25:Push 1
+Jump loc10556
+loc105b1:Jump loc1060f
+loc105b6:Push 1
 StoreRegister 2
 Pop
-loc10b32:Push register2 "tabArray"
+loc105c3:Push register2 "tabArray"
 GetVariable
 Push "length"
 GetMember
@@ -15148,7 +14781,7 @@ Push 1
 Add2
 Less2
 Not
-If loc10b7e
+If loc1060f
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -15162,9 +14795,9 @@ Push register2
 Increment
 StoreRegister 2
 Pop
-Jump loc10b32
+Jump loc105c3
 }
-loc10b7e:SetMember
+loc1060f:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_MouseUp"
@@ -15175,14 +14808,14 @@ Push null
 Equals2
 Not
 Not
-If loc10cc6
+If loc10757
 Push null
 StoreRegister 3
 Pop
 Push 1
 StoreRegister 1
 Pop
-loc10bcf:Push register1 "tabArray"
+loc10660:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
@@ -15190,7 +14823,7 @@ Push 1
 Add2
 Less2
 Not
-If loc10c38
+If loc106c9
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -15203,22 +14836,22 @@ Pop
 Push register2 "_visible"
 GetMember
 Not
-If loc10c28
+If loc106b9
 Push register2 "stat"
 GetMember
 StoreRegister 3
 Pop
-Jump loc10c38
-loc10c28:Push register1
+Jump loc106c9
+loc106b9:Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc10bcf
-loc10c38:Push register3 null
+Jump loc10660
+loc106c9:Push register3 null
 Equals2
 Not
 Not
-If loc10c6d
+If loc106fe
 Push "sepaDragingMc"
 GetVariable
 Push register3 2 "attachSepaOnMainChat"
@@ -15227,10 +14860,10 @@ Pop
 Push 0.0 "saveTabInfo"
 CallFunction
 Pop
-loc10c6d:Push 1
+loc106fe:Push 1
 StoreRegister 1
 Pop
-loc10c7a:Push register1 "tabArray"
+loc1070b:Push register1 "tabArray"
 GetVariable
 Push "length"
 GetMember
@@ -15238,7 +14871,7 @@ Push 1
 Add2
 Less2
 Not
-If loc10cc6
+If loc10757
 Push "container_mc"
 GetVariable
 Push "output_mc"
@@ -15252,9 +14885,9 @@ Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc10c7a
+Jump loc1070b
 }
-loc10cc6:SetMember
+loc10757:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_MouseDown"
@@ -15268,7 +14901,7 @@ GetMember
 Equals2
 PushDuplicate
 Not
-If loc10d30
+If loc107c1
 Pop
 Push "container_mc"
 GetVariable
@@ -15280,12 +14913,12 @@ Push "caretIndex"
 GetMember
 Push 0.0
 Equals2
-loc10d30:Not
-If loc10d47
+loc107c1:Not
+If loc107d8
 Push 0.0 "impossibleCaretCheck"
 CallFunction
 Pop
-loc10d47:Push register2 "_name"
+loc107d8:Push register2 "_name"
 GetMember
 StoreRegister 6
 Pop
@@ -15293,14 +14926,14 @@ Push register9 2
 Equals2
 PushDuplicate
 Not
-If loc10d88
+If loc10819
 Pop
 Push 3 0.0 2 register6 "substr"
 CallMethod
 Push "tab"
 Equals2
-loc10d88:Not
-If loc1130a
+loc10819:Not
+If loc10d9b
 Push register2 "_parent"
 GetMember
 Push "_parent"
@@ -15315,7 +14948,7 @@ Push "UIname"
 GetVariable
 Equals2
 PushDuplicate
-If loc10de1
+If loc10872
 Pop
 Push register2 "_parent"
 GetMember
@@ -15328,8 +14961,8 @@ GetMember
 Push "UIname"
 GetVariable
 Equals2
-loc10de1:Not
-If loc1108b
+loc10872:Not
+If loc10b1c
 Push 1 3 2 register6 "substr"
 CallMethod
 StoreRegister 5
@@ -15342,19 +14975,19 @@ Pop
 Push register5 0.0
 Equals2
 Not
-If loc10e4f
+If loc108e0
 Push 0.0 "removeTabStr"
 GetVariable
 Push 2 "setEnableMenuLine"
 CallFunction
 Pop
-Jump loc10e68
-loc10e4f:Push 1 "removeTabStr"
+Jump loc108f9
+loc108e0:Push 1 "removeTabStr"
 GetVariable
 Push 2 "setEnableMenuLine"
 CallFunction
 Pop
-loc10e68:Push register2 "_parent"
+loc108f9:Push register2 "_parent"
 GetMember
 Push "tabOptionMenu_mc"
 GetMember
@@ -15375,7 +15008,7 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loc1108b
+If loc10b1c
 Push "x" register1 "_xmouse"
 GetMember
 Push "y" register1 "_ymouse"
@@ -15401,7 +15034,7 @@ Push "yPixelToRatio"
 CallMethod
 Greater
 Not
-If loc10f5f
+If loc109f0
 Push register3 "_y" register4 "y"
 GetMember
 Push 30 "lib"
@@ -15415,8 +15048,8 @@ GetMember
 Multiply
 Add2
 SetMember
-Jump loc10f97
-loc10f5f:Push register3 "_y" register4 "y"
+Jump loc10a28
+loc109f0:Push register3 "_y" register4 "y"
 GetMember
 Push register3 "_height"
 GetMember
@@ -15432,7 +15065,7 @@ GetMember
 Multiply
 Subtract
 SetMember
-loc10f97:Push 80 register1 "_xmouse"
+loc10a28:Push 80 register1 "_xmouse"
 GetMember
 Push 1 "lib"
 GetVariable
@@ -15444,7 +15077,7 @@ Push "xPixelToRatio"
 CallMethod
 Greater
 Not
-If loc10fff
+If loc10a90
 Push register3 "_x" register4 "x"
 GetMember
 Push 30 "lib"
@@ -15458,8 +15091,8 @@ GetMember
 Multiply
 Subtract
 SetMember
-Jump loc11037
-loc10fff:Push register3 "_x" register4 "x"
+Jump loc10ac8
+loc10a90:Push register3 "_x" register4 "x"
 GetMember
 Push register3 "_width"
 GetMember
@@ -15475,7 +15108,7 @@ GetMember
 Multiply
 Add2
 SetMember
-loc11037:Push register3 "_visible" true
+loc10ac8:Push register3 "_visible" true
 SetMember
 Push 0.0 "startTabOptionOut"
 CallFunction
@@ -15490,11 +15123,11 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loc1108b
+If loc10b1c
 Push 0.0 "chatOptionOutEnd"
 CallFunction
 Pop
-loc1108b:Push 6 0.0 2 register2 "_parent"
+loc10b1c:Push 6 0.0 2 register2 "_parent"
 GetMember
 Push "_name"
 GetMember
@@ -15503,7 +15136,7 @@ CallMethod
 Push "viewer"
 Equals2
 Not
-If loc1130a
+If loc10d9b
 Push register2 "_parent"
 GetMember
 Push "tabOptionMenu_mc"
@@ -15525,7 +15158,7 @@ GetMember
 Push 0.0
 Equals2
 Not
-If loc1130a
+If loc10d9b
 Push "x" register1 "_xmouse"
 GetMember
 Push "y" register1 "_ymouse"
@@ -15551,7 +15184,7 @@ Push "yPixelToRatio"
 CallMethod
 Greater
 Not
-If loc111b6
+If loc10c47
 Push register3 "_y" register4 "y"
 GetMember
 Push 30 "lib"
@@ -15565,8 +15198,8 @@ GetMember
 Multiply
 Add2
 SetMember
-Jump loc111ee
-loc111b6:Push register3 "_y" register4 "y"
+Jump loc10c7f
+loc10c47:Push register3 "_y" register4 "y"
 GetMember
 Push register3 "_height"
 GetMember
@@ -15582,7 +15215,7 @@ GetMember
 Multiply
 Subtract
 SetMember
-loc111ee:Push 80 register1 "_xmouse"
+loc10c7f:Push 80 register1 "_xmouse"
 GetMember
 Push 1 "lib"
 GetVariable
@@ -15594,7 +15227,7 @@ Push "xPixelToRatio"
 CallMethod
 Greater
 Not
-If loc11256
+If loc10ce7
 Push register3 "_x" register4 "x"
 GetMember
 Push 30 "lib"
@@ -15608,8 +15241,8 @@ GetMember
 Multiply
 Subtract
 SetMember
-Jump loc1128e
-loc11256:Push register3 "_x" register4 "x"
+Jump loc10d1f
+loc10ce7:Push register3 "_x" register4 "x"
 GetMember
 Push register3 "_width"
 GetMember
@@ -15625,7 +15258,7 @@ GetMember
 Multiply
 Add2
 SetMember
-loc1128e:Push register3 "_visible" true
+loc10d1f:Push register3 "_visible" true
 SetMember
 Push 3 1 register2 "_parent"
 GetMember
@@ -15651,12 +15284,12 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loc1130a
+If loc10d9b
 Push 0.0 "chatOptionOutEnd"
 CallFunction
 Pop
 }
-loc1130a:SetMember
+loc10d9b:SetMember
 Push "myListener"
 GetVariable
 Push "OnGame_LogOut"
@@ -15678,11 +15311,11 @@ SetVariable
 Push 0.0
 StoreRegister 1
 Pop
-loc11363:Push register1 "tabMaxLimit"
+loc10df4:Push register1 "tabMaxLimit"
 GetVariable
 Less2
 Not
-If loc113fe
+If loc10e8f
 Push "tab"
 GetVariable
 Push "btn_array"
@@ -15694,7 +15327,7 @@ GetMember
 Push "_visible"
 GetMember
 Not
-If loc113ee
+If loc10e7f
 Push "tab"
 GetVariable
 Push "btn_array"
@@ -15722,12 +15355,12 @@ Push "glow"
 GetMember
 Push "_visible" false
 SetMember
-loc113ee:Push register1
+loc10e7f:Push register1
 Increment
 StoreRegister 1
 Pop
-Jump loc11363
-loc113fe:Push 0.0 "myListener"
+Jump loc10df4
+loc10e8f:Push 0.0 "myListener"
 GetVariable
 Push "OnGame_Chat_ResetInfo"
 CallMethod
@@ -15787,7 +15420,7 @@ GetMember
 Push 2
 Equals2
 Not
-If loc11530
+If loc11773
 Push register1 1
 GetMember
 Push register1 0.0
@@ -15795,36 +15428,9 @@ GetMember
 Push 2 "ToGame_Chat_ClickLink"
 CallFunction
 Pop
-Jump loc11579
-loc11530:Push register1 "length"
-GetMember
-Push 3
-Equals2
-Not
-If loc11579
-Push register1 2
-GetMember
-Push register1 1
-GetMember
-Push register1 0.0
-GetMember
-Push 3 "ToGame_Chat_ClickLink"
-CallFunction
-Pop
-loc11579:Push 0.0 "isFocusInput"
-CallFunction
-Not
-If loc115b4
-Push false 1 "myListener"
-GetVariable
-Push "OnGame_Chat_ChangeChatMode"
-CallMethod
-Pop
-Push 0.0 "clearInputTxt"
-CallFunction
-Pop
+Jump loc11773
 }
-loc115b4:SetMember
+SetMember
 Push "_global"
 GetVariable
 Push "chatNameAction"
@@ -15851,7 +15457,7 @@ Push -1
 Equals2
 Not
 Not
-If loc1166c
+If loc11079
 Push false "\'" "&&&;" register2 4 "lib"
 GetVariable
 Push "util"
@@ -15862,13 +15468,13 @@ Push "replace"
 CallMethod
 StoreRegister 2
 Pop
-loc1166c:Push "&&&;" 1 register3 "indexOf"
+loc11079:Push "&&&;" 1 register3 "indexOf"
 CallMethod
 Push -1
 Equals2
 Not
 Not
-If loc116b5
+If loc110c2
 Push false "\'" "&&&;" register3 4 "lib"
 GetVariable
 Push "util"
@@ -15879,27 +15485,27 @@ Push "replace"
 CallMethod
 StoreRegister 3
 Pop
-loc116b5:Push register1 "shift"
+loc110c2:Push register1 "shift"
 GetMember
 Not
-If loc116de
+If loc110eb
 Push "SHIFT" register3 register4 register2 4 "ToGame_Chat_ClickName"
 CallFunction
 Pop
-Jump loc1171b
-loc116de:Push register1 "control"
+Jump loc11128
+loc110eb:Push register1 "control"
 GetMember
 Not
-If loc11708
+If loc11115
 Push "CTRL" register3 register4 register2 4 "ToGame_Chat_ClickName"
 CallFunction
 Pop
-Jump loc1171b
-loc11708:Push register3 register4 register2 3 "ToGame_Chat_ClickName"
+Jump loc11128
+loc11115:Push register3 register4 register2 3 "ToGame_Chat_ClickName"
 CallFunction
 Pop
 }
-loc1171b:SetMember
+loc11128:SetMember
 Push "_global"
 GetVariable
 Push "debug"
@@ -16063,10 +15669,10 @@ DefineFunction "" 0  {
 Push "motionLock"
 GetVariable
 Not
-If loc11979
+If loc11386
 Push undefined
 Return
-loc11979:Push "noticeType" "0"
+loc11386:Push "noticeType" "0"
 SetVariable
 Push "FSCommand:ToGame_Chat_NoticeCall" "noticeType"
 GetVariable
@@ -16084,10 +15690,10 @@ DefineFunction "" 0  {
 Push "motionLock"
 GetVariable
 Not
-If loc119c5
+If loc113d2
 Push undefined
 Return
-loc119c5:Push "noticeType" "1"
+loc113d2:Push "noticeType" "1"
 SetVariable
 Push "FSCommand:ToGame_Chat_NoticeCall" "noticeType"
 GetVariable
@@ -16265,13 +15871,13 @@ CallFunction
 Pop
 Push "i" 0.0
 DefineLocal
-loc11c5f:Push "i"
+loc1166c:Push "i"
 GetVariable
 Push "tabMaxLimit"
 GetVariable
 Less2
 Not
-If loc11d47
+If loc11754
 Push 0.0 "i"
 GetVariable
 Push 2 "tab"
@@ -16334,5 +15940,6 @@ Push "i" "i"
 GetVariable
 Increment
 SetVariable
-Jump loc11c5f
-loc11d47:GetUrl "FSCommand:ToGame_Chat_Init" ""
+Jump loc1166c
+loc11754:GetUrl "FSCommand:ToGame_Chat_Init" ""
+loc11773:
