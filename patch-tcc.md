@@ -26,6 +26,7 @@ if(msgs.indexOf("tcc-map:") != -1)
 
 Code
 -------------
+```
 Push "tcc-map:" 1 register25 "indexOf"
 CallMethod
 Push -1
@@ -46,7 +47,7 @@ Push "3" 2 "ToGame_Chat_ClickLink"
 CallFunction
 Pop
 tccmap:
-
+```
 How to
 --------------
 
