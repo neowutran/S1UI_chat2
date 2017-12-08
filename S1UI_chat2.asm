@@ -7599,6 +7599,18 @@ CallMethod
 Add2
 StoreRegister 8
 Pop
+Push "<ChatLinkAction param=\"" 1 "<A HREF=\"asfunction:chatLinkAction," 1 register8 "split"
+CallMethod
+Push "join"
+CallMethod
+StoreRegister 8
+Pop
+Push "</ChatLinkAction>" 1 "</A>" 1 register8 "split"
+CallMethod
+Push "join"
+CallMethod
+StoreRegister 8
+Pop
 Push register8
 StoreRegister 3
 Pop
